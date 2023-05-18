@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test3/my_home_page.dart';
+import 'package:flutter_test3/002_material_home_page.dart';
 
 // アプリケーションエントリポイント
 void main() {
@@ -10,7 +10,7 @@ void main() {
 class FlutterTest3App extends StatelessWidget {
   const FlutterTest3App({super.key});
 
-  // アプリケーションルートを示す。
+  // アプリケーションルート
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +18,7 @@ class FlutterTest3App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MaterialHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

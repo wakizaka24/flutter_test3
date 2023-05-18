@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test3/auto_route/router.gr.dart';
+import 'package:flutter_test3/P001_auto_route/router.gr.dart';
 
 void main() {
   runApp(const FlutterTest3App());

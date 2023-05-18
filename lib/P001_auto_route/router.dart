@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_test3/auto_route/stateless_home_page.dart';
-import 'package:flutter_test3/auto_route/stateless_user_page.dart';
+import 'package:flutter_test3/P001_auto_route/002_material_home_page.dart';
+import 'package:flutter_test3/P001_auto_route/003_material_user_page.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: StatelessHomePage, initial: true),
-    AutoRoute(page: StatelessUserPage),
+    AutoRoute(page: MaterialHomePage, initial: true),
+    AutoRoute(page: MaterialUserPage),
   ],
 )
 class $AppRouter {}

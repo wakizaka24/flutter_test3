@@ -13,8 +13,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
-import 'package:flutter_test3/auto_route/stateless_home_page.dart' as _i1;
-import 'package:flutter_test3/auto_route/stateless_user_page.dart' as _i2;
+import 'package:flutter_test3/P001_auto_route/002_material_home_page.dart'
+    as _i1;
+import 'package:flutter_test3/P001_auto_route/003_material_user_page.dart'
+    as _i2;
 
 class AppRouter extends _i3.RootStackRouter {
   AppRouter([_i4.GlobalKey<_i4.NavigatorState>? navigatorKey])
@@ -22,17 +24,17 @@ class AppRouter extends _i3.RootStackRouter {
 
   @override
   final Map<String, _i3.PageFactory> pagesMap = {
-    StatelessHomeRoute.name: (routeData) {
+    MaterialHomeRoute.name: (routeData) {
       return _i3.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i1.StatelessHomePage(),
+        child: const _i1.MaterialHomePage(),
       );
     },
-    StatelessUserRoute.name: (routeData) {
-      final args = routeData.argsAs<StatelessUserRouteArgs>();
+    MaterialUserRoute.name: (routeData) {
+      final args = routeData.argsAs<MaterialUserRouteArgs>();
       return _i3.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i2.StatelessUserPage(
+        child: _i2.MaterialUserPage(
           key: args.key,
           name: args.name,
         ),
@@ -43,48 +45,48 @@ class AppRouter extends _i3.RootStackRouter {
   @override
   List<_i3.RouteConfig> get routes => [
         _i3.RouteConfig(
-          StatelessHomeRoute.name,
+          MaterialHomeRoute.name,
           path: '/',
         ),
         _i3.RouteConfig(
-          StatelessUserRoute.name,
-          path: '/stateless-user-page',
+          MaterialUserRoute.name,
+          path: '/material-user-page',
         ),
       ];
 }
 
 /// generated route for
-/// [_i1.StatelessHomePage]
-class StatelessHomeRoute extends _i3.PageRouteInfo<void> {
-  const StatelessHomeRoute()
+/// [_i1.MaterialHomePage]
+class MaterialHomeRoute extends _i3.PageRouteInfo<void> {
+  const MaterialHomeRoute()
       : super(
-          StatelessHomeRoute.name,
+          MaterialHomeRoute.name,
           path: '/',
         );
 
-  static const String name = 'StatelessHomeRoute';
+  static const String name = 'MaterialHomeRoute';
 }
 
 /// generated route for
-/// [_i2.StatelessUserPage]
-class StatelessUserRoute extends _i3.PageRouteInfo<StatelessUserRouteArgs> {
-  StatelessUserRoute({
+/// [_i2.MaterialUserPage]
+class MaterialUserRoute extends _i3.PageRouteInfo<MaterialUserRouteArgs> {
+  MaterialUserRoute({
     _i4.Key? key,
     required String name,
   }) : super(
-          StatelessUserRoute.name,
-          path: '/stateless-user-page',
-          args: StatelessUserRouteArgs(
+          MaterialUserRoute.name,
+          path: '/material-user-page',
+          args: MaterialUserRouteArgs(
             key: key,
             name: name,
           ),
         );
 
-  static const String name = 'StatelessUserRoute';
+  static const String name = 'MaterialUserRoute';
 }
 
-class StatelessUserRouteArgs {
-  const StatelessUserRouteArgs({
+class MaterialUserRouteArgs {
+  const MaterialUserRouteArgs({
     this.key,
     required this.name,
   });
@@ -95,6 +97,6 @@ class StatelessUserRouteArgs {
 
   @override
   String toString() {
-    return 'StatelessUserRouteArgs{key: $key, name: $name}';
+    return 'MaterialUserRouteArgs{key: $key, name: $name}';
   }
 }
