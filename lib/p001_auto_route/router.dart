@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_test3/P001_auto_route/002_material_home_page.dart';
-import 'package:flutter_test3/P001_auto_route/003_material_user_page.dart';
+import 'package:flutter_test3/P001_auto_route/f002_material_home_page.dart';
+import 'package:flutter_test3/P001_auto_route/f003_material_user_page.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',

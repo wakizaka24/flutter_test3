@@ -13,9 +13,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
-import 'package:flutter_test3/P001_auto_route/002_material_home_page.dart'
+import 'package:flutter_test3/P001_auto_route/f002_material_home_page.dart'
     as _i1;
-import 'package:flutter_test3/P001_auto_route/003_material_user_page.dart'
+import 'package:flutter_test3/P001_auto_route/f003_material_user_page.dart'
     as _i2;
 
 class AppRouter extends _i3.RootStackRouter {

@@ -18,17 +18,15 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-        body: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              child: Text('StatelessUserPageへ $_counter'),
-              onPressed: () {
-                // context.router.push(MaterialUserRoute(name: 'Ryota'))
-              },
-            ),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          child: Text('UserPageへ $_counter'),
+          onPressed: () {
+            // context.router.push(MaterialUserRoute(name: 'Ryota'))
+          },
         ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
@@ -36,7 +34,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
             _counter++;
           });
         },
-        tooltip: 'Increment',
+        tooltip: 'インクリメント',
         child: const Icon(Icons.add),
       ),
     );
