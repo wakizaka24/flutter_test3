@@ -3,6 +3,8 @@ import 'package:flutter_test3/f003_material_test1_page.dart';
 import 'package:flutter_test3/f004_material_home_end_drawer.dart';
 import 'package:flutter_test3/f006_app_data.dart';
 
+import 'f007_custom_scroll_behavior.dart';
+
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
 class MaterialHomePage extends StatefulWidget {
@@ -28,6 +30,7 @@ class MaterialHomePageState extends State<MaterialHomePage> {
         title: Text(widget.title),
       ),
       body: PageView(
+        scrollBehavior: CustomScrollBehavior(),
         scrollDirection: Axis.horizontal, // 横
         controller: pageViewController,
         pageSnapping: true, // ページごとにスクロールを止める
