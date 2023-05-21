@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f005_highlight_able_button.dart';
-
-import 'f006_app_data.dart';
+import 'package:flutter_test3/f006_app_data.dart';
 
 enum MaterialHomeDrawerType {
   test1(title: 'テスト1'),
