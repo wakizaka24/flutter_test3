@@ -76,25 +76,23 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
             topLeft: Radius.circular(16)),
         child: Drawer(
           backgroundColor: theme.colorScheme.background,
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 8,
-                  ),
-                  child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_forward),
-                  )
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 8,
                 ),
-                Expanded(
-                  child: menuList
-                ),
-              ]
-            )
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_forward),
+                )
+              ),
+              Expanded(
+                child: menuList
+              ),
+            ]
           )
         )
       )

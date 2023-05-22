@@ -4,6 +4,7 @@ import 'package:flutter_test3/f004_material_home_end_drawer.dart';
 import 'package:flutter_test3/f006_app_data.dart';
 
 import 'f007_custom_scroll_behavior.dart';
+import 'f008_material_test2_page.dart';
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -41,9 +42,9 @@ class MaterialHomePageState extends State<MaterialHomePage> {
         },
         children: const <Widget>[
           MaterialTest1Page(title: 'タブ1',),
-          MaterialTest1Page(title: 'タブ2',),
-          MaterialTest1Page(title: 'タブ3',),
-          MaterialTest1Page(title: 'タブ4',),
+          MaterialTest2Page(title: 'タブ2',),
+          MaterialTest2Page(title: 'タブ3',),
+          MaterialTest2Page(title: 'タブ4',),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
