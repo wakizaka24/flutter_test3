@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test3/f002_material_home_page.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 // アプリケーションエントリポイント
 void main() {
@@ -18,6 +17,7 @@ class FlutterTest3App extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [
