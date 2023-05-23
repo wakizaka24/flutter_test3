@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class MaterialTest2Page extends StatefulWidget {
-  const MaterialTest2Page({super.key, required this.title});
-  final String title;
+import 'f006_app_common.dart';
+
+class MaterialTest3Page extends StatefulWidget {
+  const MaterialTest3Page({super.key, required this.heroTag});
+  final String heroTag;
 
   @override
-  State<MaterialTest2Page> createState() => _MaterialTest2PageState();
+  State<MaterialTest3Page> createState() => _MaterialTest3PageState();
 }
 
-class _MaterialTest2PageState extends State<MaterialTest2Page>
+class _MaterialTest3PageState extends State<MaterialTest3Page>
     with AutomaticKeepAliveClientMixin {
   int _counter = 0;
 
@@ -17,18 +19,19 @@ class _MaterialTest2PageState extends State<MaterialTest2Page>
     super.build(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          child: Text('UserPageへ $_counter'),
+          child: Text('ドロワーを開く $_counter'),
           onPressed: () {
-            // context.router.push(MaterialUserRoute(name: 'Ryota'))
+            AppCommon().materialHomePageScaffoldKey.currentState!
+                .openEndDrawer();
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: widget.heroTag,
         onPressed: () {
           setState(() {
-            // setStateの呼び出しで変更をFlutterに伝え、buildを再実行する。
             _counter++;
           });
         },

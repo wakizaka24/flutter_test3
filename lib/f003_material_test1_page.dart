@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_test3/f006_app_common.dart';
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
 class MaterialTest1Page extends StatefulWidget {
-  const MaterialTest1Page({super.key, required this.title});
-  final String title;
+  const MaterialTest1Page({super.key, required this.heroTag});
+  final String heroTag;
 
   @override
   State<MaterialTest1Page> createState() => _MaterialTest1PageState();
@@ -22,14 +23,16 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
   var switch3Value = false;
   DateTime dateTime = DateTime.now();
 
+  static const dataNum = 32;
+
   List<DateTime> dateTimes = [
-    for (int i = 0; i<32; i++) ... {
+    for (int i = 0; i<dataNum; i++) ... {
       DateTime.now()
     }
   ];
 
   List<TextEditingController> textFieldControllers = [
-    for (int i = 0; i<32; i++) ... {
+    for (int i = 0; i<dataNum; i++) ... {
       TextEditingController()
     }
   ];
@@ -50,7 +53,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
           scrollDirection: Axis.vertical,
           padding: const EdgeInsets.only(
             left: 16,
-            top:16,
+            top: 16,
             right: 16,
             bottom: 16,
           ),
@@ -279,12 +282,42 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 ]
               ),
 
-            Container(height: 32),
+            Container(height: 8),
 
-            for (int i=0; i < dateTimes.length; i++) ... {
+            const Text('AlertDialogの検証',
+                style: TextStyle(fontSize: 15)),
+
+            Container(height: 8),
+
+            Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      String? result = await AppCommon()
+                          .showMessageDialog(context, 'AlertDialogの検証',
+                          'メッセージ');
+                      if (!mounted) return;
+                      await AppCommon()
+                          .showMessageDialog(context, 'AlertDialogの検証',
+                          'メッセージの戻り値：$result', true, 'OK');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                    ),
+                    child: const Text('開く'),
+                  ),
+                ]
+            ),
+
+            Container(height: 300),
+
+            for (int i=0; i<dataNum; i++) ... {
               Visibility(
                 visible: i == 0,
-                child: const Text('スクロール検証',
+                child: const Text('ListViewのスクロール検証',
                     style: TextStyle(fontSize: 15)),
               ),
               // --- copy ---
@@ -363,10 +396,8 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
       ),
 
       floatingActionButton: FloatingActionButton(
+        heroTag: widget.heroTag,
         onPressed: () {
-          setState(() {
-            //_counter++;
-          });
         },
         tooltip: 'インクリメント',
         child: const Icon(Icons.add),

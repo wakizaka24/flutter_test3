@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f005_highlight_able_button.dart';
-import 'package:flutter_test3/f006_app_data.dart';
+import 'package:flutter_test3/f006_app_common.dart';
 
 enum MaterialHomeDrawerType {
   test1(title: 'テスト1'),
@@ -52,7 +52,7 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                 action: SnackBarAction(
                   label: '詳細',
                   onPressed: () {
-                    AppData().materialHomePageScaffoldKey.currentState!
+                    AppCommon().materialHomePageScaffoldKey.currentState!
                         .openEndDrawer();
                   },
                 ),

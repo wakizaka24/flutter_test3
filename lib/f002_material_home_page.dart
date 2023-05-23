@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f003_material_test1_page.dart';
 import 'package:flutter_test3/f004_material_home_end_drawer.dart';
-import 'package:flutter_test3/f006_app_data.dart';
-import 'package:flutter_test3/f008_material_test2_page.dart';
+import 'package:flutter_test3/f006_app_common.dart';
+import 'package:flutter_test3/f007_material_test2_page.dart';
+import 'package:flutter_test3/f008_material_test3_page.dart';
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -22,7 +23,7 @@ class MaterialHomePageState extends State<MaterialHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: AppData().materialHomePageScaffoldKey,
+      key: AppCommon().materialHomePageScaffoldKey,
       endDrawer: const MaterialHomeDrawer(),
       appBar: AppBar(
         // ページを示すオブジェクトから値を取得する。
@@ -38,10 +39,10 @@ class MaterialHomePageState extends State<MaterialHomePage> {
           });
         },
         children: const <Widget>[
-          MaterialTest1Page(title: 'タブ1',),
-          MaterialTest2Page(title: 'タブ2',),
-          MaterialTest2Page(title: 'タブ3',),
-          MaterialTest2Page(title: 'タブ4',),
+          MaterialTest1Page(heroTag: 'hero1'),
+          MaterialTest2Page(heroTag: 'hero2'),
+          MaterialTest3Page(heroTag: 'hero3'),
+          MaterialTest3Page(heroTag: 'hero4'),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
