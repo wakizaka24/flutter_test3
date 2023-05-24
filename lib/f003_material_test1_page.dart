@@ -331,7 +331,17 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      var response = await http.get(Uri.parse(testApi1));
+                      // if (kIsWeb) {
+                      //   await AppCommon()
+                      //       .showMessageDialog(context, 'Httpの検証',
+                      //       'HttpはWeb環境に対応していません',
+                      //       true, 'OK');
+                      //   return;
+                      // }
+
+                      // http://localhost
+                      var response = await http.get(Uri.parse(testApi1),
+                          headers: {'Origin':'https://wakizaka24.github.io'});
                       var responseStr = 'API GET $testApi1\n'
                           'Response ${response.statusCode}'
                           ' ${response.body}';
@@ -367,7 +377,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       if (kIsWeb) {
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
-                            'SQLLite3はWeb環境に対応していません',
+                            'SQLite3はWeb環境に対応していません',
                             true, 'OK');
                         return;
                       }
@@ -444,7 +454,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       if (kIsWeb) {
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
-                            'SQLLite3はWeb環境に対応していません',
+                            'SQLite3はWeb環境に対応していません',
                             true, 'OK');
                         return;
                       }
@@ -486,7 +496,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       if (kIsWeb) {
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
-                            'SQLLite3はWeb環境に対応していません',
+                            'SQLite3はWeb環境に対応していません',
                             true, 'OK');
                         return;
                       }
