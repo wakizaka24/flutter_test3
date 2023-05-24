@@ -363,11 +363,11 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      late sql3.Database db;
                       try {
-                        // DROP TABLE, CREATE TABLE,
-                        final db = sql3.sqlite3.openInMemory();
+                        // CREATE TABLE,
+                        db = await AppCommon().getDb();
                         db.execute(
-                            'DROP TABLE IF EXISTS `TEST1_TABLE`;'
                             'CREATE TABLE `TEST1_TABLE` ('
                             '`COLUM1` INT NOT NULL PRIMARY KEY,'
                             '`COLUM2` VARCHAR(256) NULL'
@@ -402,19 +402,19 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         db.select('SELECT * FROM `TEST1_TABLE` '
                             'WHERE `COLUM2` LIKE ?', ['The %']);
                         for (final sql3.Row row in resultSet) {
+                          if (!mounted) return;
                           await AppCommon()
                               .showMessageDialog(context, 'SQLLite3の検証',
                               'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
                                   ' COLUM1: ${row['COLUM2']}]',
                               true, 'OK');
-                          if (!mounted) return;
                         }
 
                         db.dispose();
                       } catch (e) {
                         await AppCommon()
                             .showMessageDialog(context, 'SQLLite3の検証',
-                            'DB実行に失敗しました\n$e',
+                            'ステートメント実行に失敗しました\n$e',
                             true, 'OK');
                       }
                     },
@@ -425,7 +425,80 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       ),
                       textStyle: const TextStyle(fontSize: 13),
                     ),
-                    child: const Text('DB実行'),
+                    child: const Text('CREATE'),
+                  ),
+
+                  const Spacer(),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      late sql3.Database db;
+                      try {
+                        db = await AppCommon().getDb();
+                        // DROP TABLE
+                        db.execute(
+                            'DROP TABLE IF EXISTS `TEST1_TABLE`;');
+                        if (!mounted) return;
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLLite3の検証',
+                            'テーブルを削除しました',
+                            true, 'OK');
+                        db.dispose();
+                      } catch (e) {
+                        db.dispose();
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLLite3の検証',
+                            'ステートメントの実行に失敗しました\n$e',
+                            true, 'OK');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('DROP'),
+                  ),
+
+                  const Spacer(),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      late sql3.Database db;
+                      try {
+                        db = await AppCommon().getDb();
+                        // SELECT
+                        final sql3.ResultSet resultSet =
+                        db.select('SELECT * FROM `TEST1_TABLE` '
+                            'WHERE `COLUM2` LIKE ?', ['The %']);
+                        for (final sql3.Row row in resultSet) {
+                          if (!mounted) return;
+                          await AppCommon()
+                              .showMessageDialog(context, 'SQLLite3の検証',
+                              'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
+                                  ' COLUM1: ${row['COLUM2']}]',
+                              true, 'OK');
+                          if (!mounted) return;
+                        }
+                        db.dispose();
+                      } catch (e) {
+                        db.dispose();
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLLite3の検証',
+                            'ステートメントの実行に失敗しました\n$e',
+                            true, 'OK');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('SELECT'),
                   ),
                 ]
             ),
