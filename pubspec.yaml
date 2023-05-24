@@ -41,6 +41,10 @@ dependencies:
   intl: ^0.18.0
   # 画面のルード管理
   auto_route: ^5.0.4
+  # API
+  http: ^1.0.0
+  # SQLite
+  sqlite3: ^1.11.1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_test3/f006_app_common.dart';
+import 'package:http/http.dart' as http;
+import 'package:sqlite3/sqlite3.dart' as sql3;
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -24,6 +26,8 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
   DateTime dateTime = DateTime.now();
 
   static const dataNum = 32;
+  static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi'
+      '/php/api1_get_unique_id.php';
 
   List<DateTime> dateTimes = [
     for (int i = 0; i<dataNum; i++) ... {
@@ -111,29 +115,29 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
               child: Row(
                 children: [
                   TextButton(
+                    onPressed: () {
+                    },
                     style: TextButton.styleFrom(
                         fixedSize: const Size(150, 32),
                         textStyle: const TextStyle(fontSize: 15)),
-                    onPressed: () {
-                    },
                     child: const Text('TextButton'),
                   ),
                   Container(width: 8),
                   OutlinedButton(
-                    style: TextButton.styleFrom(
-                        fixedSize: const Size(150, 32),
-                        textStyle: const TextStyle(fontSize: 15)),
                     onPressed: () {
                     },
+                    style: OutlinedButton.styleFrom(
+                        fixedSize: const Size(150, 32),
+                        textStyle: const TextStyle(fontSize: 15)),
                     child: const Text('OutlinedButton'),
                   ),
                   Container(width: 8),
                   ElevatedButton(
-                    style: TextButton.styleFrom(
-                        fixedSize: const Size(150, 32),
-                        textStyle: const TextStyle(fontSize: 15)),
                     onPressed: () {
                     },
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(150, 32),
+                        textStyle: const TextStyle(fontSize: 15)),
                     child: const Text('ElevatedButton'),
                   ),
                 ],
@@ -234,15 +238,18 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      final DateTime? datePicked = await showDatePicker(
+                      final DateTime? day = await showDatePicker(
                         context: context,
                         initialDate: dateTime,
                         firstDate: DateTime(2021),
                         lastDate: DateTime(2100),
                       );
-                      if (datePicked != null) {
+                      if (day != null) {
                         setState(() {
-                          dateTime = datePicked;
+                          dateTime = DateTime(
+                              day.year, day.month,
+                              day.day, dateTime.hour,
+                              dateTime.minute);
                         });
                       }
                     },
@@ -312,6 +319,117 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 ]
             ),
 
+            Container(height: 8),
+
+            const Text('Httpの検証',
+                style: TextStyle(fontSize: 15)),
+
+            Container(height: 8),
+
+            Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      var response = await http.get(Uri.parse(testApi1));
+                      var responseStr = 'API GET $testApi1\n'
+                          'Response ${response.statusCode}'
+                          ' ${response.body}';
+                      debugPrint(responseStr);
+                      if (!mounted) return;
+                      await AppCommon()
+                          .showMessageDialog(context, 'Httpの検証',
+                          responseStr, true, 'OK');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('API呼び出し'),
+                  ),
+                ]
+            ),
+
+            Container(height: 8),
+
+            const Text('SQLLite3の検証',
+                style: TextStyle(fontSize: 15)),
+
+            Container(height: 8),
+
+            Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // DROP TABLE, CREATE TABLE,
+                        final db = sql3.sqlite3.openInMemory();
+                        db.execute(
+                            'DROP TABLE IF EXISTS `TEST1_TABLE`;'
+                            'CREATE TABLE `TEST1_TABLE` ('
+                            '`COLUM1` INT NOT NULL PRIMARY KEY,'
+                            '`COLUM2` VARCHAR(256) NULL'
+                            ');'
+                            'CREATE INDEX `TEST1_TABLE_COLUM1_INDEX`'
+                            'ON `TEST1_TABLE`(`COLUM1`);');
+
+                        // INSERT, UPDATE, DELETE,
+                        var statement = db.prepare('INSERT INTO `TEST1_TABLE`'
+                            '(`COLUM1`, `COLUM2`) VALUES (?, ?)');
+                        statement
+                          ..execute([1, 'The Beatles'])
+                          ..execute([2, 'Led Zeppelin'])
+                          ..execute([3, 'The Who'])
+                          ..execute([4, 'Nirvana']);
+                        statement.dispose();
+
+                        statement = db.prepare('UPDATE `TEST1_TABLE`'
+                            'SET `COLUM2` = ? WHERE `COLUM1` = ?');
+                        statement
+                            .execute(['The Beatles', 3]);
+                        statement.dispose();
+
+                        statement = db.prepare('DELETE FROM `TEST1_TABLE`'
+                            'WHERE `COLUM1` = ?');
+                        statement
+                            .execute([4]);
+                        statement.dispose();
+
+                        // SELECT
+                        final sql3.ResultSet resultSet =
+                        db.select('SELECT * FROM `TEST1_TABLE` '
+                            'WHERE `COLUM2` LIKE ?', ['The %']);
+                        for (final sql3.Row row in resultSet) {
+                          await AppCommon()
+                              .showMessageDialog(context, 'SQLLite3の検証',
+                              'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
+                                  ' COLUM1: ${row['COLUM2']}]',
+                              true, 'OK');
+                          if (!mounted) return;
+                        }
+
+                        db.dispose();
+                      } catch (e) {
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLLite3の検証',
+                            'DB実行に失敗しました\n$e',
+                            true, 'OK');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('DB実行'),
+                  ),
+                ]
+            ),
+
             Container(height: 300),
 
             for (int i=0; i<dataNum; i++) ... {
@@ -342,15 +460,18 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        final DateTime? datePicked = await showDatePicker(
+                        final DateTime? day = await showDatePicker(
                           context: context,
                           initialDate: dateTimes[i],
                           firstDate: DateTime(2021),
                           lastDate: DateTime(2100),
                         );
-                        if (datePicked != null) {
+                        if (day != null) {
                           setState(() {
-                            dateTimes[i] = datePicked;
+                            dateTimes[i] = DateTime(
+                              day.year, day.month,
+                              day.day, dateTimes[i].hour,
+                              dateTimes[i].minute);
                           });
                         }
                       },

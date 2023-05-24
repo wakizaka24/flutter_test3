@@ -41,20 +41,23 @@ class _MaterialTest2PageState extends State<MaterialTest2Page>
               Card(
                 child: ListTile(
                   leading: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(Icons.people),
-                      constraints: const BoxConstraints(),
-                      onPressed: () {
-                      }
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(Icons.people),
+                    constraints: const BoxConstraints(),
+                    onPressed: () {
+                    }
                   ),
                   title: Text(titles[i]),
                   subtitle: Text(subTitles[i]),
                   trailing: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(Icons.more_vert),
-                      constraints: const BoxConstraints(),
-                      onPressed: () {
-                      }
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(Icons.more_vert),
+                    constraints: const BoxConstraints(),
+                    onPressed: () {
+                    }
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   onTap: () {
                     Navigator.push(context,

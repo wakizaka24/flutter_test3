@@ -21,8 +21,8 @@ class FlutterTest3App extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale("en"),
-        Locale("ja"),
+        Locale('en'),
+        Locale('ja'),
       ],
       title: 'Flutter Demo',
       theme: ThemeData(
