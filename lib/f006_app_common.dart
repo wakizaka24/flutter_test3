@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sqlite3/sqlite3.dart' as sql3;
+import 'package:flutter_test3/e001_export/sqlite3_export.dart' as sql3;
 
 class AppCommon {
   static final AppCommon _instance = AppCommon._internal();

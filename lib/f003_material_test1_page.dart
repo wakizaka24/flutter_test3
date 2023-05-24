@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_test3/f006_app_common.dart';
 import 'package:http/http.dart' as http;
-import 'package:sqlite3/sqlite3.dart' as sql3;
+import 'package:flutter_test3/e001_export/sqlite3_export.dart' as sql3;
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -354,7 +355,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
             Container(height: 8),
 
-            const Text('SQLLite3の検証',
+            const Text('SQLite3の検証',
                 style: TextStyle(fontSize: 15)),
 
             Container(height: 8),
@@ -363,6 +364,14 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      if (kIsWeb) {
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLite3の検証',
+                            'SQLLite3はWeb環境に対応していません',
+                            true, 'OK');
+                        return;
+                      }
+
                       late sql3.Database db;
                       try {
                         // CREATE TABLE,
@@ -404,7 +413,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         for (final sql3.Row row in resultSet) {
                           if (!mounted) return;
                           await AppCommon()
-                              .showMessageDialog(context, 'SQLLite3の検証',
+                              .showMessageDialog(context, 'SQLite3の検証',
                               'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
                                   ' COLUM1: ${row['COLUM2']}]',
                               true, 'OK');
@@ -413,7 +422,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         db.dispose();
                       } catch (e) {
                         await AppCommon()
-                            .showMessageDialog(context, 'SQLLite3の検証',
+                            .showMessageDialog(context, 'SQLite3の検証',
                             'ステートメント実行に失敗しました\n$e',
                             true, 'OK');
                       }
@@ -432,6 +441,14 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
                   ElevatedButton(
                     onPressed: () async {
+                      if (kIsWeb) {
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLite3の検証',
+                            'SQLLite3はWeb環境に対応していません',
+                            true, 'OK');
+                        return;
+                      }
+
                       late sql3.Database db;
                       try {
                         db = await AppCommon().getDb();
@@ -440,14 +457,14 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                             'DROP TABLE IF EXISTS `TEST1_TABLE`;');
                         if (!mounted) return;
                         await AppCommon()
-                            .showMessageDialog(context, 'SQLLite3の検証',
+                            .showMessageDialog(context, 'SQLite3の検証',
                             'テーブルを削除しました',
                             true, 'OK');
                         db.dispose();
                       } catch (e) {
                         db.dispose();
                         await AppCommon()
-                            .showMessageDialog(context, 'SQLLite3の検証',
+                            .showMessageDialog(context, 'SQLite3の検証',
                             'ステートメントの実行に失敗しました\n$e',
                             true, 'OK');
                       }
@@ -466,6 +483,14 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
                   ElevatedButton(
                     onPressed: () async {
+                      if (kIsWeb) {
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLite3の検証',
+                            'SQLLite3はWeb環境に対応していません',
+                            true, 'OK');
+                        return;
+                      }
+
                       late sql3.Database db;
                       try {
                         db = await AppCommon().getDb();
@@ -476,7 +501,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         for (final sql3.Row row in resultSet) {
                           if (!mounted) return;
                           await AppCommon()
-                              .showMessageDialog(context, 'SQLLite3の検証',
+                              .showMessageDialog(context, 'SQLite3の検証',
                               'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
                                   ' COLUM1: ${row['COLUM2']}]',
                               true, 'OK');
@@ -486,7 +511,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       } catch (e) {
                         db.dispose();
                         await AppCommon()
-                            .showMessageDialog(context, 'SQLLite3の検証',
+                            .showMessageDialog(context, 'SQLite3の検証',
                             'ステートメントの実行に失敗しました\n$e',
                             true, 'OK');
                       }
