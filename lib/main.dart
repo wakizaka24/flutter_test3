@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_test3/f002_material_home_page.dart';
+import 'package:flutter_test3/f001_material_home_page.dart';
 
 // アプリケーションエントリポイント
 void main() {

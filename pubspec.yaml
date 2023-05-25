@@ -49,6 +49,8 @@ dependencies:
   path: ^1.8.3
   # 各プラットフォームのパス取得(SQLiteのファイルパス取得)
   path_provider: ^2.0.15
+  # SharedPreferences
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_test:

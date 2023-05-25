@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_test3/f006_app_common.dart';
+import 'package:flutter_test3/f005_app_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_test3/e001_export/sqlite3_export.dart' as sql3;
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -416,19 +417,6 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                             .execute([4]);
                         statement.dispose();
 
-                        // SELECT
-                        final sql3.ResultSet resultSet =
-                        db.select('SELECT * FROM `TEST1_TABLE` '
-                            'WHERE `COLUM2` LIKE ?', ['The %']);
-                        for (final sql3.Row row in resultSet) {
-                          if (!mounted) return;
-                          await AppCommon()
-                              .showMessageDialog(context, 'SQLite3の検証',
-                              'TEST1_TABLE[COLUM1: ${row['COLUM1']},'
-                                  ' COLUM1: ${row['COLUM2']}]',
-                              true, 'OK');
-                        }
-
                         db.dispose();
                       } catch (e) {
                         await AppCommon()
@@ -445,48 +433,6 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       textStyle: const TextStyle(fontSize: 13),
                     ),
                     child: const Text('CREATE'),
-                  ),
-
-                  const Spacer(),
-
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (kIsWeb) {
-                        await AppCommon()
-                            .showMessageDialog(context, 'SQLite3の検証',
-                            'SQLite3はWeb環境に対応していません',
-                            true, 'OK');
-                        return;
-                      }
-
-                      late sql3.Database db;
-                      try {
-                        db = await AppCommon().getDb();
-                        // DROP TABLE
-                        db.execute(
-                            'DROP TABLE IF EXISTS `TEST1_TABLE`;');
-                        if (!mounted) return;
-                        await AppCommon()
-                            .showMessageDialog(context, 'SQLite3の検証',
-                            'テーブルを削除しました',
-                            true, 'OK');
-                        db.dispose();
-                      } catch (e) {
-                        db.dispose();
-                        await AppCommon()
-                            .showMessageDialog(context, 'SQLite3の検証',
-                            'ステートメントの実行に失敗しました\n$e',
-                            true, 'OK');
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(
-                        buttonFitSize,
-                        32,
-                      ),
-                      textStyle: const TextStyle(fontSize: 13),
-                    ),
-                    child: const Text('DROP'),
                   ),
 
                   const Spacer(),
@@ -535,8 +481,131 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                     ),
                     child: const Text('SELECT'),
                   ),
+
+                  const Spacer(),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (kIsWeb) {
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLite3の検証',
+                            'SQLite3はWeb環境に対応していません',
+                            true, 'OK');
+                        return;
+                      }
+
+                      late sql3.Database db;
+                      try {
+                        db = await AppCommon().getDb();
+                        // DROP TABLE
+                        db.execute(
+                            'DROP TABLE IF EXISTS `TEST1_TABLE`;');
+                        db.dispose();
+                      } catch (e) {
+                        db.dispose();
+                        await AppCommon()
+                            .showMessageDialog(context, 'SQLite3の検証',
+                            'ステートメントの実行に失敗しました\n$e',
+                            true, 'OK');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('DROP'),
+                  ),
                 ]
             ),
+
+            Container(height: 8),
+
+            const Text('SharedPreferencesの検証',
+                style: TextStyle(fontSize: 15)),
+
+            Container(height: 8),
+
+            Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      final SharedPreferences prefs = await SharedPreferences
+                          .getInstance();
+                      await prefs.setInt('counter', 10);
+                      await prefs.setBool('repeat', true);
+                      await prefs.setDouble('decimal', 1.5);
+                      await prefs.setString('action', 'Start');
+                      await prefs.setStringList('items', <String>['Earth',
+                        'Moon', 'Sun']);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('Write'),
+                  ),
+
+                  const Spacer(),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      final SharedPreferences prefs = await SharedPreferences
+                          .getInstance();
+                      final int? counter = prefs.getInt('counter');
+                      final bool? repeat = prefs.getBool('repeat');
+                      final double? decimal = prefs.getDouble('decimal');
+                      final String? action = prefs.getString('action');
+                      final List<String>? items = prefs.getStringList('items');
+                      if (!mounted) return;
+                      await AppCommon()
+                          .showMessageDialog(context, 'SharedPreferencesの検証',
+                          'counter=$counter, repeat=$repeat, decimal=$decimal, '
+                              'action=$action, items=$items', true, 'OK');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('Read'),
+                  ),
+
+                  const Spacer(),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      final SharedPreferences prefs = await SharedPreferences
+                          .getInstance();
+                      await prefs.remove('counter');
+                      await prefs.remove('repeat');
+                      await prefs.remove('decimal');
+                      await prefs.remove('action');
+                      await prefs.remove('items');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        buttonFitSize,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                    ),
+                    child: const Text('Remove'),
+                  ),
+                ]
+            ),
+
+            Container(height: 8),
+
+
+
 
             Container(height: 300),
 
