@@ -28,8 +28,10 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
   DateTime dateTime = DateTime.now();
 
   static const dataNum = 32;
-  static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi'
-      '/php/api1_get_unique_id.php';
+  // static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi'
+  //     '/php/api1_get_unique_id.php';
+  static const testApi1 = 'https://umayadia-apisample.azurewebsites.net'
+      '/api/persons/Shakespeare';
 
   List<DateTime> dateTimes = [
     for (int i = 0; i<dataNum; i++) ... {

@@ -89122,9 +89122,9 @@ $0(){var s=0,r=A.W(t.H),q,p=this,o,n,m
 var $async$$0=A.X(function(a,b){if(a===1)return A.T(b,r)
 while(true)switch(s){case 0:o=t.N
 s=3
-return A.a1(A.aSg(A.pL("https://wakizaka24.sakura.ne.jp/reversi/php/api1_get_unique_id.php"),A.aK(["Origin","https://wakizaka24.github.io"],o,o)),$async$$0)
+return A.a1(A.aSg(A.pL("https://umayadia-apisample.azurewebsites.net/api/persons/Shakespeare"),A.aK(["Origin","https://wakizaka24.github.io"],o,o)),$async$$0)
 case 3:n=b
-m="API GET https://wakizaka24.sakura.ne.jp/reversi/php/api1_get_unique_id.php\nResponse "+n.b+" "+A.aS1(A.aPQ(n.e).c.a.h(0,"charset")).eU(0,n.w)
+m="API GET https://umayadia-apisample.azurewebsites.net/api/persons/Shakespeare\nResponse "+n.b+" "+A.aS1(A.aPQ(n.e).c.a.h(0,"charset")).eU(0,n.w)
 A.atB().$1(m)
 if(p.a.c==null){s=1
 break}s=4
