@@ -390,7 +390,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         return;
                       }
 
-                      late sql3.Database db;
+                      sql3.Database? db;
                       try {
                         // CREATE TABLE,
                         db = await AppCommon().getDb();
@@ -426,10 +426,12 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
                         db.dispose();
                       } catch (e) {
+                        db?.dispose();
+                        var log = 'ステートメント実行に失敗しました\n$e';
+                        debugPrint(log);
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
-                            'ステートメント実行に失敗しました\n$e',
-                            true, 'OK');
+                            log, true, 'OK');
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -454,7 +456,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         return;
                       }
 
-                      late sql3.Database db;
+                      sql3.Database? db;
                       try {
                         db = await AppCommon().getDb();
                         // SELECT
@@ -472,11 +474,12 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         }
                         db.dispose();
                       } catch (e) {
-                        db.dispose();
+                        db?.dispose();
+                        var log = 'ステートメント実行に失敗しました\n$e';
+                        debugPrint(log);
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
-                            'ステートメントの実行に失敗しました\n$e',
-                            true, 'OK');
+                            log, true, 'OK');
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -501,7 +504,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                         return;
                       }
 
-                      late sql3.Database db;
+                      sql3.Database? db;
                       try {
                         db = await AppCommon().getDb();
                         // DROP TABLE
@@ -509,7 +512,9 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                             'DROP TABLE IF EXISTS `TEST1_TABLE`;');
                         db.dispose();
                       } catch (e) {
-                        db.dispose();
+                        db?.dispose();
+                        var log = 'ステートメント実行に失敗しました\n$e';
+                        debugPrint(log);
                         await AppCommon()
                             .showMessageDialog(context, 'SQLite3の検証',
                             'ステートメントの実行に失敗しました\n$e',

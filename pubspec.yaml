@@ -45,6 +45,7 @@ dependencies:
   http: ^1.0.0
   # SQLite
   sqlite3: ^1.11.1
+  sqlite3_flutter_libs: ^0.5.15
   # Flutterのパス取得(SQLiteのファイルパス取得)
   path: ^1.8.3
   # 各プラットフォームのパス取得(SQLiteのファイルパス取得)
