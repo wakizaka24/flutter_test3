@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HighlightAbleButton extends StatefulWidget {
+class HighlightAbleButton extends StatelessWidget {
   const HighlightAbleButton({super.key,
     required this.title,
     this.fontSize,
@@ -20,34 +20,29 @@ class HighlightAbleButton extends StatefulWidget {
   final void Function(int?) onTapCancel;
 
   @override
-  State<HighlightAbleButton> createState() => _HighlightAbleButton();
-}
-
-class _HighlightAbleButton extends State<HighlightAbleButton> {
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return GestureDetector(
-      onTapDown: (TapDownDetails details) => widget.onTapDown(widget.index),
-      onTap: () => widget.onTap(widget.index),
-      onTapCancel: () => widget.onTapCancel(widget.index),
+      onTapDown: (TapDownDetails details) => onTapDown(index),
+      onTap: () => onTap(index),
+      onTapCancel: () => onTapCancel(index),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: widget.isHighlighted
+          color: isHighlighted
               ? theme.colorScheme.secondaryContainer
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: ListTile(
           title: Text(
-            widget.title,
+            title,
             style: TextStyle(
-              color: widget.isHighlighted
+              color: isHighlighted
                   ? theme.colorScheme.onSecondaryContainer
                   : theme.colorScheme.onSurfaceVariant,
-              fontSize: widget.fontSize,
+              fontSize: fontSize,
               fontWeight: FontWeight.w800,
             ),
           ),
