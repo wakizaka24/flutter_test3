@@ -54,7 +54,12 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
     return Scaffold(
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () {
+          final FocusScopeNode focusScope = FocusScope.of(context);
+          if (!focusScope.hasPrimaryFocus && focusScope.hasFocus) {
+            FocusManager.instance.primaryFocus!.unfocus();
+          }
+        },
         child: ListView(
           scrollDirection: Axis.vertical,
           padding: const EdgeInsets.only(
