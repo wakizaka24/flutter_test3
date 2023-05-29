@@ -34,7 +34,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "1909769039";
+    var serviceWorkerVersion = "2916218942";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -55,10 +55,11 @@
       });
     });
 
-    <!-- ブラウザの画面遷移を無効にする -->
-    history.pushState(null, null, location.href);
-      window.addEventListener('popstate', (e) => {
-      history.go(1);
+    <!-- ブラウザのページ遷移を無効にする -->
+    window.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, {
+      passive: false
     });
   </script>
 </body>
