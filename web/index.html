@@ -54,6 +54,12 @@
         }
       });
     });
+
+    <!-- ブラウザの画面遷移を無効にする -->
+    history.pushState(null, null, location.href);
+      window.addEventListener('popstate', (e) => {
+      history.go(1);
+    });
   </script>
 </body>
 </html>
