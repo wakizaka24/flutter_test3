@@ -52,6 +52,8 @@ dependencies:
   path_provider: ^2.0.15
   # SharedPreferences
   shared_preferences: ^2.1.1
+  # HooksとRiverpod
+  hooks_riverpod: ^2.3.6
 
 dev_dependencies:
   flutter_test:

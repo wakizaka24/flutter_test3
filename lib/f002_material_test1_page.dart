@@ -96,6 +96,9 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 border: OutlineInputBorder(),
                 hintText: '宛先',
               ),
+              onChanged: (text) {
+                debugPrint("Textの変更検知={$text}");
+              },
             ),
 
             Container(height: 8),
@@ -110,6 +113,9 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 border: OutlineInputBorder(),
                 hintText: '本文\n\n\n\n\n',
               ),
+              onChanged: (text) {
+                debugPrint("Textの変更検知={$text}");
+              },
             ),
 
             Container(height: 8),
