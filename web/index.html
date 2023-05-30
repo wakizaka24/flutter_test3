@@ -32,6 +32,14 @@
   <title>flutter_test3</title>
   <link rel="manifest" href="manifest.json">
 
+  <!-- ブラウザの左右スワイプによる履歴ナビゲーションを無効にする -->
+  <!-- Safariでは一部有効 -->
+  <style>
+    html.disable-navigation {
+      overscroll-behavior-x: none;
+    }
+  </style>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
@@ -61,6 +69,7 @@
     }, {
       passive: false
     });
+
   </script>
 </body>
 </html>

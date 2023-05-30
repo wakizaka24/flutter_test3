@@ -4,6 +4,7 @@ import 'package:flutter_test3/f003_material_home_end_drawer.dart';
 import 'package:flutter_test3/f005_app_common.dart';
 import 'package:flutter_test3/f006_material_test2_page.dart';
 import 'package:flutter_test3/f007_material_test3_page.dart';
+import 'package:flutter_test3/f009_material_test5_page.dart';
 
 // ページ
 // Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
@@ -42,7 +43,7 @@ class MaterialHomePageState extends State<MaterialHomePage> {
           MaterialTest1Page(heroTag: 'hero1'),
           MaterialTest2Page(heroTag: 'hero2'),
           MaterialTest3Page(heroTag: 'hero3'),
-          MaterialTest3Page(heroTag: 'hero4'),
+          MaterialTest5Page(heroTag: 'hero4'),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
