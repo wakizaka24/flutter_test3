@@ -41,7 +41,7 @@ dependencies:
   intl: ^0.18.0
   # 画面のルード管理
   auto_route: ^5.0.4
-  # API
+  # APIアクセス
   http: ^1.0.0
   # SQLite
   sqlite3: ^1.11.1
@@ -50,12 +50,16 @@ dependencies:
   path: ^1.8.3
   # 各プラットフォームのパス取得(SQLiteのファイルパス取得)
   path_provider: ^2.0.15
-  # SharedPreferences
+  # 変数保存
   shared_preferences: ^2.1.1
   # HooksとRiverpod
   hooks_riverpod: ^2.3.6
   # Hooks(Hooks単体使用時のワーニング対処のため)
   flutter_hooks: ^0.18.6
+  # APIアクセス(高機能)
+  retrofit: ^4.0.1
+  # Jsonとモデルのパース指定
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
@@ -68,9 +72,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+  # コマンドによるコード生成
+  build_runner: ^2.3.3
   # auto_routeのソース生成時に必要
   auto_route_generator: ^5.0.3
-  build_runner: ^2.3.3
+  # json_serializableのソース生成時に必要
+  json_serializable: ^6.7.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
