@@ -28,10 +28,10 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
   DateTime dateTime = DateTime.now();
 
   static const dataNum = 32;
-  // static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi'
-  //     '/php/api1_get_unique_id.php';
-  static const testApi1 = 'https://umayadia-apisample.azurewebsites.net'
-      '/api/persons/Shakespeare';
+  static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi'
+      '/php/api1_get_unique_id.php';
+  // static const testApi1 = 'https://umayadia-apisample.azurewebsites.net'
+  //     '/api/persons/Shakespeare';
 
   List<DateTime> dateTimes = [
     for (int i = 0; i<dataNum; i++) ... {
@@ -354,8 +354,7 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       // }
 
                       // http://localhost
-                      var response = await http.get(Uri.parse(testApi1),
-                          headers: {'Origin':'https://wakizaka24.github.io'});
+                      var response = await http.get(Uri.parse(testApi1));
                       var responseStr = 'API GET $testApi1\n'
                           'Response ${response.statusCode}'
                           ' ${response.body}';

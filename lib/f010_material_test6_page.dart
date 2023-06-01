@@ -31,8 +31,8 @@ class MaterialTest6Page extends HookConsumerWidget {
                     },
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(52, 32),
-                        textStyle: const TextStyle(fontSize: 15),
-
+                        textStyle: const TextStyle(fontSize: 13),
+                        padding: const EdgeInsets.all(0),
                     ),
                     child: const Text('追加'),
                   ),
@@ -42,7 +42,9 @@ class MaterialTest6Page extends HookConsumerWidget {
                     },
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(52, 32),
-                        textStyle: const TextStyle(fontSize: 15)),
+                        textStyle: const TextStyle(fontSize: 13),
+                        padding: const EdgeInsets.all(0),
+                    ),
                     child: const Text('削除'),
                   ),
                 ]
