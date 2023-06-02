@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
+
+part 'f010_material_test6_page.g.dart';
+/*
+cd /Users/rwakizaka/pc_data/project/rwakizaka32/flutter_test3
+fvm flutter pub run build_runner build
+ */
 
 class MaterialTest6Page extends HookConsumerWidget {
   const MaterialTest6Page({super.key, required this.title});
@@ -82,22 +89,38 @@ StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
 });
 
 // repository
-// final getApiTestInfoDataSourceProvider =
-// Provider<GetApiTestInfoDataSource>((ref) {
-//   return GetApiTestInfoDataSource(ref);
-// });
-// @RestApi()
-// abstract class GetApiTestInfoDataSource {
-//   static const testApi1 = 'https://umayadia-apisample.azurewebsites.net'
-//       '/api/persons/Shakespeare';
-//
-//   factory GetApiTestInfoDataSource(Ref ref) =>
-//       GetApiTestInfoDataSource(ref.read());
-//
-// }
+@RestApi(baseUrl: 'https://wakizaka24.sakura.ne.jp/reversi/php')
+abstract class GetApiTestInfoDataSource {
+  // static const testApi1 = 'https://wakizaka24.sakura.ne.jp/reversi/php'
+  //     '/api1_get_unique_id.php';
+
+  factory GetApiTestInfoDataSource(Ref ref) =>
+      _GetApiTestInfoDataSource(ref.read(dioProvider));
+
+  @GET("/api1_get_unique_id.php")
+  Future<Api1Result> getUniqueId();
+}
+@JsonSerializable()
+class Api1Result {
+  Api1Result({required this.uniqueId});
+
+  String uniqueId;
+  factory Api1Result.fromJson(Map<String, dynamic> json) => _$Api1ResultFromJson(json);
+  Map<String, dynamic> toJson() => _$Api1ResultToJson(this);
+}
+final getApiTestInfoDataSourceProvider =
+Provider<GetApiTestInfoDataSource>((ref) {
+  return GetApiTestInfoDataSource(ref);
+});
 
 // setting(Widgetの状態と関係なし)
-// class CustomDio with DioMixin implements Dio {
-//
-// }
+class CustomDio with DioMixin implements Dio {
+  static final CustomDio _instance = CustomDio._internal();
+  CustomDio._internal();
+
+  factory CustomDio() {
+    return _instance;
+  }
+}
+final dioProvider = Provider((_) => CustomDio());
 

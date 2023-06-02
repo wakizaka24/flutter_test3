@@ -5,12 +5,11 @@ import 'package:flutter_test3/e001_export/sqlite3_export.dart' as sql3;
 
 class AppCommon {
   static final AppCommon _instance = AppCommon._internal();
+  AppCommon._internal();
 
   factory AppCommon() {
     return _instance;
   }
-
-  AppCommon._internal();
 
   final GlobalKey<ScaffoldState> materialHomePageScaffoldKey
     = GlobalKey<ScaffoldState>();

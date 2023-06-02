@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test3/f005_app_common.dart';
-
-import 'f010_material_test6_page.dart';
+import 'package:flutter_test3/f010_material_test6_page.dart';
 
 typedef FutureStringCallback = Future<String?> Function();
 typedef FutureStringParam1StringCallback = Future<String?> Function(String?);
