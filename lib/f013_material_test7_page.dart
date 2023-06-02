@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-class MaterialTest4Page extends StatefulWidget {
-  const MaterialTest4Page({super.key, required this.title,
-  required this.autoRouter});
+class MaterialTest7Page extends StatefulWidget {
+  const MaterialTest7Page({super.key, required this.title,
+    required this.autoRouter});
   final String title;
   final bool autoRouter;
 
   @override
-  State<MaterialTest4Page> createState() => _MaterialTest4PageState();
+  State<MaterialTest7Page> createState() => _MaterialTest7PageState();
 }
 
-class _MaterialTest4PageState extends State<MaterialTest4Page> {
+class _MaterialTest7PageState extends State<MaterialTest7Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

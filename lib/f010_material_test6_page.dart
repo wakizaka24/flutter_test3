@@ -77,6 +77,7 @@ class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
   MaterialTest6PageNotifier(this.ref) : super(MaterialTest6PageState());
   final Ref ref;
 
+  
 
 }
 class MaterialTest6PageState {
@@ -113,7 +114,7 @@ Provider<GetApiTestInfoDataSource>((ref) {
   return GetApiTestInfoDataSource(ref);
 });
 
-// setting(Widgetの状態と関係なし)
+// setting
 class CustomDio with DioMixin implements Dio {
   static final CustomDio _instance = CustomDio._internal();
   CustomDio._internal();

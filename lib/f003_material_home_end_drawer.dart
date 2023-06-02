@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f004_highlight_able_button.dart';
 import 'package:flutter_test3/f005_app_common.dart';
 
+import 'f011_router.gr.dart';
+
 enum MaterialHomeDrawerType {
-  test1(title: 'テスト1'),
+  autoRouter(title: 'オートルーター'),
   test2(title: 'テスト2'),
   test3(title: 'テスト3'),
   test4(title: 'テスト4'),
@@ -46,9 +49,17 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                 _highlightedIndex = null;
               });
               Navigator.pop(context);
+
+              switch (MaterialHomeDrawerType.values[i!]) {
+                case MaterialHomeDrawerType.autoRouter:
+                  context.navigateTo(const MaterialHome3Route());
+                  return;
+                default:
+              }
+
               final snackBar = SnackBar(
                 content: Text('${MaterialHomeDrawerType
-                    .values[i!].title}をクリックしました!'),
+                    .values[i].title}をクリックしました!'),
                 action: SnackBarAction(
                   label: '詳細',
                   onPressed: () {

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_test3/f001_material_home_page.dart';
+import 'package:flutter_test3/f011_router.gr.dart';
 
 // アプリケーションエントリポイント
 void main() {
   runApp(const FlutterTest3App());
 }
+
+// Auto Routeのツールで自動生成したクラス
+final _appRouter = AppRouter();
 
 // アプリ
 class FlutterTest3App extends StatelessWidget {
@@ -14,7 +17,7 @@ class FlutterTest3App extends StatelessWidget {
   // アプリケーションルート
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -28,7 +31,9 @@ class FlutterTest3App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MaterialHomePage(title: 'Flutter Demo Home Page'),
+      // Auto Routeに必要な拡張
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }

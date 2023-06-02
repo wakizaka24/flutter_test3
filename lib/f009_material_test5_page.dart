@@ -115,7 +115,7 @@ class MaterialTest5Page extends HookWidget {
                     style: const TextStyle(fontSize: 15)),
                 Container(height: 5),
                 FloatingActionButton(
-                  heroTag: heroTag,
+                  heroTag: "${heroTag}_2",
                   onPressed: () {
                     counter2.value++;
                   },
@@ -169,7 +169,7 @@ class MaterialTest5Page extends HookWidget {
           ]
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: heroTag,
+        heroTag: "${heroTag}_1",
         onPressed: () {
           counter1.value++;
         },
@@ -198,7 +198,7 @@ class MaterialTest5Widget extends HookWidget {
             style: const TextStyle(fontSize: 15)),
         Container(height: 5),
         FloatingActionButton(
-          heroTag: heroTag,
+          heroTag: "${heroTag}_3",
           onPressed: () {
             counter3.value++;
           },

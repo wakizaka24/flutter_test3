@@ -6,17 +6,13 @@ import 'package:flutter_test3/f006_material_test2_page.dart';
 import 'package:flutter_test3/f007_material_test3_page.dart';
 import 'package:flutter_test3/f009_material_test5_page.dart';
 
-// ページ
-// Stateオブジェクトを持ち。Stateオブジェクトは外観に影響を与える。
 class MaterialHomePage extends StatefulWidget {
-  const MaterialHomePage({super.key, required this.title});
-  final String title;
+  const MaterialHomePage({super.key});
 
   @override
   State<MaterialHomePage> createState() => MaterialHomePageState();
 }
 
-// 状態
 class MaterialHomePageState extends State<MaterialHomePage> {
   int _selectedIndex = 0;
   PageController pageViewController = PageController();
@@ -27,8 +23,7 @@ class MaterialHomePageState extends State<MaterialHomePage> {
       key: AppCommon().materialHomePageScaffoldKey,
       endDrawer: const MaterialHomeDrawer(),
       appBar: AppBar(
-        // ページを示すオブジェクトから値を取得する。
-        title: Text(widget.title),
+        title: const Text('Flutter Demo Home Page'),
       ),
       body: PageView(
         scrollDirection: Axis.horizontal, // 横

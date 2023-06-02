@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f008_material_test4_page.dart';
+import 'package:flutter_test3/f011_router.gr.dart';
 
 class MaterialTest2Page extends StatefulWidget {
   const MaterialTest2Page({super.key, required this.heroTag});
@@ -60,10 +62,16 @@ class _MaterialTest2PageState extends State<MaterialTest2Page>
                     borderRadius: BorderRadius.circular(4),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>
-                      MaterialTest4Page(title: titles[i])),
-                    );
+                    if (i % 2 == 0) {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                            MaterialTest4Page(title: titles[i],
+                                autoRouter: false)),
+                      );
+                    } else {
+                      context.navigateTo(MaterialTest4Route(
+                          title: titles[i], autoRouter: true));
+                    }
                   },
                 ),
               ),
