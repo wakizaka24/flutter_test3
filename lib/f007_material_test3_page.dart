@@ -21,6 +21,14 @@ class _MaterialTest3PageState extends State<MaterialTest3Page>
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            fixedSize: const Size(
+              150,
+              32,
+            ),
+            textStyle: const TextStyle(fontSize: 13),
+            padding: const EdgeInsets.all(0),
+          ),
           child: Text('ドロワーを開く $_counter'),
           onPressed: () {
             AppCommon().materialHomePageScaffoldKey.currentState!

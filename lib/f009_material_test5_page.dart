@@ -79,6 +79,14 @@ class MaterialTest5Page extends HookWidget {
             Row(
                 children: [
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(
+                        150,
+                        32,
+                      ),
+                      textStyle: const TextStyle(fontSize: 13),
+                      padding: const EdgeInsets.all(0),
+                    ),
                     child: const Text('Riverpodの検証へ'),
                     onPressed: () {
                       Navigator.push(context,
@@ -107,16 +115,18 @@ class MaterialTest5Page extends HookWidget {
                 Text('兄弟2の子2 ${counter2.value} 現在時刻 ${DateTime.now()}',
                     style: const TextStyle(fontSize: 15)),
                 Container(height: 5),
-                ElevatedButton(
+                FloatingActionButton(
+                  heroTag: heroTag,
                   onPressed: () {
                     counter2.value++;
                   },
+                  tooltip: 'インクリメント',
                   child: const Icon(Icons.add),
-                ),
+                )
               ],
             ),
             Container(height: 16),
-            const MaterialTest5Widget(),
+            MaterialTest5Widget(heroTag: heroTag),
             Container(height: 32),
             const Text('Flutter Hooksの検証 useContext',
                 style: TextStyle(fontSize: 15)),
@@ -130,6 +140,14 @@ class MaterialTest5Page extends HookWidget {
                     // ignore: use_build_context_synchronously
                     await showMessageDialogType002(result);
                   },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(
+                      52,
+                      32,
+                    ),
+                    textStyle: const TextStyle(fontSize: 13),
+                    padding: const EdgeInsets.all(0),
+                  ),
                   child: const Text('開く1'),
                 ),
                 Container(width: 8),
@@ -137,6 +155,14 @@ class MaterialTest5Page extends HookWidget {
                   onPressed: () async {
                     await showMessageDialogType003();
                   },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(
+                      52,
+                      32,
+                    ),
+                    textStyle: const TextStyle(fontSize: 13),
+                    padding: const EdgeInsets.all(0),
+                  ),
                   child: const Text('開く2'),
                 ),
               ],
@@ -156,7 +182,8 @@ class MaterialTest5Page extends HookWidget {
 }
 
 class MaterialTest5Widget extends HookWidget {
-  const MaterialTest5Widget({super.key});
+  const MaterialTest5Widget({super.key, required this.heroTag});
+  final String heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -171,12 +198,14 @@ class MaterialTest5Widget extends HookWidget {
         Text('兄弟3の子3 ${counter3.value} 現在時刻 ${DateTime.now()}',
             style: const TextStyle(fontSize: 15)),
         Container(height: 5),
-        ElevatedButton(
+        FloatingActionButton(
+          heroTag: heroTag,
           onPressed: () {
             counter3.value++;
           },
+          tooltip: 'インクリメント',
           child: const Icon(Icons.add),
-        ),
+        )
       ],
     );
   }

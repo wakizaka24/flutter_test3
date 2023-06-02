@@ -18,6 +18,10 @@ class _MaterialTest4PageState extends State<MaterialTest4Page> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 13),
+            padding: const EdgeInsets.all(0),
+          ),
           child: const Text('戻る'),
           onPressed: () {
             Navigator.pop(context);

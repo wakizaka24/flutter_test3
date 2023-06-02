@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retrofit/http.dart';
+import 'package:dio/dio.dart';
 
 class MaterialTest6Page extends HookConsumerWidget {
   const MaterialTest6Page({super.key, required this.title});
@@ -36,7 +37,7 @@ class MaterialTest6Page extends HookConsumerWidget {
                     ),
                     child: const Text('追加'),
                   ),
-                  Container(width: 16),
+                  Container(width: 8),
                   ElevatedButton(
                     onPressed: () {
                     },
@@ -85,9 +86,6 @@ StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
 // Provider<GetApiTestInfoDataSource>((ref) {
 //   return GetApiTestInfoDataSource(ref);
 // });
-
-
-
 // @RestApi()
 // abstract class GetApiTestInfoDataSource {
 //   static const testApi1 = 'https://umayadia-apisample.azurewebsites.net'
@@ -95,6 +93,11 @@ StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
 //
 //   factory GetApiTestInfoDataSource(Ref ref) =>
 //       GetApiTestInfoDataSource(ref.read());
+//
+// }
+
+// setting(Widgetの状態と関係なし)
+// class CustomDio with DioMixin implements Dio {
 //
 // }
 

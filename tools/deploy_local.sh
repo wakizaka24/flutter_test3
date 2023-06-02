@@ -6,7 +6,7 @@ fi
 
 cd ..
 rm -rf ./build/web
-flutter build web --web-renderer canvaskit -t lib/main.dart
+fvm flutter build web --web-renderer canvaskit -t lib/main.dart
 cd ./build/web
 # base href="/" -> base href="/flutter_test3/deploy/20230521_1852_37/"
 # sed -e "s/base href=\"\/\"/base href=\"\/flutter_test3\/deploy\/20230521_1852_37\/\"/g" ./index.html
