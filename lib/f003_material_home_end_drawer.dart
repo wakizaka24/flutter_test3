@@ -6,7 +6,7 @@ import 'package:flutter_test3/f005_app_common.dart';
 import 'f011_router.gr.dart';
 
 enum MaterialHomeDrawerType {
-  autoRouter(title: 'オートルーター'),
+  autoRouter(title: 'Auto Router'),
   test2(title: 'テスト2'),
   test3(title: 'テスト3'),
   test4(title: 'テスト4'),
