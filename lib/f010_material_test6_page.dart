@@ -1,9 +1,8 @@
-import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:retrofit/http.dart';
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 part 'f010_material_test6_page.g.dart';
 /*
@@ -122,6 +121,38 @@ StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
 });
 
 // repository
+class TestApiDataSource {
+  TestApiDataSource({required this.ref});
+  final Ref ref;
+
+  final baseUrl = 'https://wakizaka24.sakura.ne.jp/reversi/php';
+
+  Future<TestApiApi1Result> getUniqueId() async {
+    var response = await http.get(Uri.parse('$baseUrl/api1_get_unique_id.php'));
+    var json = convert.json.decode(response.body) as Map<String, dynamic>;
+    return TestApiApi1Result.fromJson(json);
+  }
+}
+@JsonSerializable()
+class TestApiApi1Result {
+  TestApiApi1Result({required this.uniqueId});
+
+  @JsonKey(name: "unique_id") String uniqueId;
+  factory TestApiApi1Result.fromJson(Map<String, dynamic> json)
+  => _$TestApiApi1ResultFromJson(json);
+  Map<String, dynamic> toJson() => _$TestApiApi1ResultToJson(this);
+}
+final testApiDataSourceProvider = Provider<TestApiDataSource>((ref) {
+  return TestApiDataSource(ref: ref);
+});
+
+
+
+
+
+
+
+/*
 @RestApi()
 abstract class TestApiDataSource {
   factory TestApiDataSource(Ref ref) =>
@@ -162,3 +193,4 @@ class TestApiDio with DioMixin implements Dio {
   }
 }
 final testApiDioProvider = Provider((_) => TestApiDio());
+*/
