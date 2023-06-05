@@ -21,60 +21,70 @@ class MaterialTest6Page extends HookConsumerWidget {
     final state = ref.watch(materialTest6PageNotifierProvider);
     List<String> list = state.uniqueIdList;
 
-    debugPrint("list=${state.uniqueIdList}");
-
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Column(
-        children: [
-          Container(
-            color: const Color(0xCCDED2BF),
-            padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16),
-            child: Row(
-                children: [
-                  const Text('タイトル', style: TextStyle(fontSize: 15,
-                      fontWeight: FontWeight.w700,),
-                  ),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await notifier.getUniqueId();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(52, 32),
-                        textStyle: const TextStyle(fontSize: 13),
-                        padding: const EdgeInsets.all(0),
-                    ),
-                    child: const Text('追加'),
-                  ),
-                  Container(width: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(52, 32),
-                        textStyle: const TextStyle(fontSize: 13),
-                        padding: const EdgeInsets.all(0),
-                    ),
-                    child: const Text('削除'),
-                  ),
-                ]
-            )
-          ),
-
-          if (list.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 32.0),
-              child: Text("対象のデータが存在しません"),
+        body: Column(
+          children: [
+            Container(
+                color: const Color(0xCCDED2BF),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16),
+                child: Row(
+                    children: [
+                      const Text('タイトル', style: TextStyle(fontSize: 15,
+                        fontWeight: FontWeight.w700,),
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await notifier.getUniqueId();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(52, 32),
+                          textStyle: const TextStyle(fontSize: 13),
+                          padding: const EdgeInsets.all(0),
+                        ),
+                        child: const Text('追加'),
+                      ),
+                      Container(width: 8),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await notifier.deleteFirstUniqueId();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(52, 32),
+                          textStyle: const TextStyle(fontSize: 13),
+                          padding: const EdgeInsets.all(0),
+                        ),
+                        child: const Text('削除'),
+                      ),
+                    ]
+                )
             ),
+            Expanded(
+              child: ListView(
+                children: [
+                  if (list.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15,
+                          vertical: 21),
+                      child: Text("対象のデータが存在しません"),
+                    ),
 
-
-        ],
-      ),
+                  for (int i = 0; i<list.length; i++) ... {
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 21, 15, 0),
+                      child: Text(list[i]),
+                    ),
+                  }
+                ],
+              ),
+            ),
+          ],
+        )
     );
   }
 }
@@ -89,13 +99,17 @@ class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
 
   Future<void> getUniqueId() async {
     TestApiApi1Result result = await _apiTestInfoDataSource.getUniqueId();
-    // state.uniqueIdList.add(result.uniqueId);
-    // MaterialTest6PageState a = MaterialTest6PageState();
+    List<String> uniqueIdList = [...state.uniqueIdList];
+    uniqueIdList.add(result.uniqueId);
     state = MaterialTest6PageState();
-    state.uniqueIdList = [result.uniqueId];
+    state.uniqueIdList = uniqueIdList;
+  }
 
-
-
+  deleteFirstUniqueId() {
+    List<String> uniqueIdList = [...state.uniqueIdList];
+    uniqueIdList.removeAt(0);
+    state = MaterialTest6PageState();
+    state.uniqueIdList = uniqueIdList;
   }
 }
 class MaterialTest6PageState {
@@ -148,4 +162,3 @@ class TestApiDio with DioMixin implements Dio {
   }
 }
 final testApiDioProvider = Provider((_) => TestApiDio());
-
