@@ -89,6 +89,9 @@ class MaterialTest6Page extends HookConsumerWidget {
 }
 
 // view_model
+class MaterialTest6PageState {
+  List<String> uniqueIdList = [];
+}
 class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
   MaterialTest6PageNotifier(this.ref) : super(MaterialTest6PageState());
   final Ref ref;
@@ -110,9 +113,6 @@ class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
     state = MaterialTest6PageState();
     state.uniqueIdList = uniqueIdList;
   }
-}
-class MaterialTest6PageState {
-  List<String> uniqueIdList = [];
 }
 final materialTest6PageNotifierProvider =
 StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
