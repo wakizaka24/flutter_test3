@@ -63,7 +63,7 @@ class MaterialTest5Page extends HookWidget {
       return () {
         debugPrint("MaterialTest5Pageの解放処理");
       };
-    });
+    }, const []);
 
     return Scaffold(
       body: ListView(

@@ -571,13 +571,13 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      final SharedPreferences prefs = await SharedPreferences
+                      final SharedPreferences pref = await SharedPreferences
                           .getInstance();
-                      await prefs.setInt('counter', 10);
-                      await prefs.setBool('repeat', true);
-                      await prefs.setDouble('decimal', 1.5);
-                      await prefs.setString('action', 'Start');
-                      await prefs.setStringList('items', <String>['Earth',
+                      await pref.setInt('counter', 10);
+                      await pref.setBool('repeat', true);
+                      await pref.setDouble('decimal', 1.5);
+                      await pref.setString('action', 'Start');
+                      await pref.setStringList('items', <String>['Earth',
                         'Moon', 'Sun']);
                     },
                     style: ElevatedButton.styleFrom(
@@ -595,13 +595,13 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
 
                   ElevatedButton(
                     onPressed: () async {
-                      final SharedPreferences prefs = await SharedPreferences
+                      final SharedPreferences pref = await SharedPreferences
                           .getInstance();
-                      final int? counter = prefs.getInt('counter');
-                      final bool? repeat = prefs.getBool('repeat');
-                      final double? decimal = prefs.getDouble('decimal');
-                      final String? action = prefs.getString('action');
-                      final List<String>? items = prefs.getStringList('items');
+                      final int? counter = pref.getInt('counter');
+                      final bool? repeat = pref.getBool('repeat');
+                      final double? decimal = pref.getDouble('decimal');
+                      final String? action = pref.getString('action');
+                      final List<String>? items = pref.getStringList('items');
                       if (!mounted) return;
                       await AppCommon()
                           .showMessageDialog(context, 'SharedPreferencesの検証',
