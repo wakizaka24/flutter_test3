@@ -6,8 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'e002_repository/f001_test_api_data_source.dart';
 
 class MaterialTest6Page extends HookConsumerWidget {
-  const MaterialTest6Page({super.key, required this.title});
   final String title;
+
+  const MaterialTest6Page({super.key, required this.title});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +18,10 @@ class MaterialTest6Page extends HookConsumerWidget {
 
     useEffect(() {
       debugPrint("MaterialTest6Pageの初期化処理");
-      notifier.loadUniqueIdList();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifier.loadUniqueIdList();
+      });
+
       return () {
         debugPrint("MaterialTest6Pageの解放処理");
       };
@@ -82,6 +86,8 @@ class MaterialTest6Page extends HookConsumerWidget {
                       padding: const EdgeInsets.fromLTRB(15, 21, 15, 0),
                       child: Text(list[i]),
                     ),
+                    if (i == list.length - 1)
+                      Container(width: 21),
                   }
                 ],
               ),
@@ -107,8 +113,10 @@ class MaterialTest6PageState {
 }
 class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
   final uniqueIdListKey = 'unique_id_list';
-  MaterialTest6PageNotifier(this.ref) : super(MaterialTest6PageState());
   final Ref ref;
+
+  MaterialTest6PageNotifier(this.ref, MaterialTest6PageState state)
+      : super(state);
 
   late final TestApiDataSource _apiTestInfoDataSource
     = ref.read(testApiDataSourceProvider);
@@ -133,6 +141,9 @@ class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
   }
 
   deleteFirstUniqueId() {
+    if (state.uniqueIdList.isEmpty) {
+      return;
+    }
     state.uniqueIdList.removeAt(0);
     saveUniqueIdList();
     state = MaterialTest6PageState.copy(state);
@@ -141,5 +152,5 @@ class MaterialTest6PageNotifier extends StateNotifier<MaterialTest6PageState> {
 final materialTest6PageNotifierProvider =
 StateNotifierProvider.autoDispose<MaterialTest6PageNotifier,
     MaterialTest6PageState>((ref) {
-  return MaterialTest6PageNotifier(ref);
+  return MaterialTest6PageNotifier(ref, MaterialTest6PageState());
 });

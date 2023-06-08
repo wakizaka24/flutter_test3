@@ -21,6 +21,8 @@ fvm flutter pub pub run build_runner build --delete-conflicting-outputs
       AutoRoute(page: MaterialTest1Page),
       AutoRoute(page: MaterialTest2Page),
     ]),
+    //MaterialTest7Page
+
   ],
 )
 class $AppRouter {}

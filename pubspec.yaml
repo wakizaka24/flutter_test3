@@ -43,6 +43,7 @@ dependencies:
   auto_route: ^5.0.4
   # SQLite
   sqlite3: ^1.11.1
+  # SQLite(Android用の拡張)
   sqlite3_flutter_libs: ^0.5.15
   # Flutterのパス取得(SQLiteのファイルパス取得)
   path: ^1.8.3
@@ -54,16 +55,18 @@ dependencies:
   hooks_riverpod: ^2.3.6
   # Hooks(Hooks単体使用時のワーニング対処のため)
   flutter_hooks: ^0.18.6
-  # APIアクセスの基本機能
+  # APIアクセス
   http: ^1.0.0
-  # APIアクセスの基本機能
+  # APIアクセス
   dio: ^5.1.2
-  # 高機能なAPIアクセス
+  # APIアクセス
   retrofit: ^4.0.1
-
+  # Freezed(ModelのSetter拡張)
+  freezed_annotation: ^2.2.0
   # Jsonとモデルのパース指定
   json_annotation: ^4.8.1
-
+  # WebView
+  webview_flutter: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -78,12 +81,14 @@ dev_dependencies:
 
   # コマンドによるコード生成
   build_runner: ^2.3.3
+  # json_serializableのソース生成時に必要
+  json_serializable: ^6.7.0
   # auto_routeのソース生成時に必要
   auto_route_generator: ^5.0.3
   # retrofit_generatorのソース生成時に必要
   retrofit_generator: ^7.0.1
-  # json_serializableのソース生成時に必要
-  json_serializable: ^6.7.0
+  # freezedのソース生成に必要
+  freezed: ^2.3.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
