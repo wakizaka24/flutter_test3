@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'f010_material_test6_page.dart';
+part of 'f001_test_api_data_source.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
