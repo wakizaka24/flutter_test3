@@ -25,7 +25,7 @@ class MaterialTest7Page extends HookConsumerWidget {
     List<String> list = state.uniqueIdList;
 
     useEffect(() {
-      debugPrint("MaterialTest6Pageの初期化処理");
+      debugPrint('MaterialTest6Pageの初期化処理');
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifier.initState();
@@ -33,7 +33,7 @@ class MaterialTest7Page extends HookConsumerWidget {
       });
 
       return () {
-        debugPrint("MaterialTest6Pageの解放処理");
+        debugPrint('MaterialTest6Pageの解放処理');
       };
     }, const []);
 

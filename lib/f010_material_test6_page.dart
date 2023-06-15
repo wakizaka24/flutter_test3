@@ -17,13 +17,13 @@ class MaterialTest6Page extends HookConsumerWidget {
     List<String> list = state.uniqueIdList;
 
     useEffect(() {
-      debugPrint("MaterialTest6Pageの初期化処理");
+      debugPrint('MaterialTest6Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifier.loadUniqueIdList();
       });
 
       return () {
-        debugPrint("MaterialTest6Pageの解放処理");
+        debugPrint('MaterialTest6Pageの解放処理');
       };
     }, const []);
 

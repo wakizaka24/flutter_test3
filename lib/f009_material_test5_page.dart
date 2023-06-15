@@ -59,9 +59,9 @@ class MaterialTest5Page extends HookWidget {
 
     // Flutter Hooksの検証 useEffect
     useEffect(() {
-      debugPrint("MaterialTest5Pageの初期化処理");
+      debugPrint('MaterialTest5Pageの初期化処理');
       return () {
-        debugPrint("MaterialTest5Pageの解放処理");
+        debugPrint('MaterialTest5Pageの解放処理');
       };
     }, const []);
 
