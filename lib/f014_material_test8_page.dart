@@ -37,14 +37,14 @@ class MaterialTest8Page extends HookConsumerWidget {
             },
           ),
         )
-        ..loadRequest(Uri.parse(/*'https://flutter.dev'*/
-            'https://wakizaka24.github.io/reversi/'))
     );
 
     useEffect(() {
       debugPrint('MaterialTest8Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
-
+        webViewController.value.loadRequest(
+            Uri.parse(/*'https://flutter.dev'*/
+            'https://wakizaka24.github.io/reversi/'));
       });
 
       return () {
@@ -101,6 +101,7 @@ class MaterialTest8Page extends HookConsumerWidget {
   }
 }
 
+// view_model
 class MaterialTest8PageState {
   late WebViewController webViewController;
   double progress = 0;

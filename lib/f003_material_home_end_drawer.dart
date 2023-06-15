@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f004_highlight_able_button.dart';
 import 'package:flutter_test3/f005_app_common.dart';
@@ -50,7 +51,6 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
               setState(() {
                 _highlightedIndex = null;
               });
-              Navigator.pop(context);
 
               switch (MaterialHomeDrawerType.values[i!]) {
                 case MaterialHomeDrawerType.autoRouter:
@@ -64,6 +64,15 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                   );
                   return;
                 case MaterialHomeDrawerType.webView:
+                  if (kIsWeb) {
+                    if (!mounted) return;
+                    await AppCommon()
+                        .showMessageDialog(context, 'WebViewの検証',
+                        'WebViewはWeb環境に対応していません',
+                        true, 'OK');
+                    return;
+                  }
+
                   Navigator.push(context,
                     MaterialPageRoute(builder: (context) =>
                         MaterialTest8Page(title: MaterialHomeDrawerType
@@ -72,6 +81,9 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                   return;
                 default:
               }
+
+              if (!mounted) return;
+              Navigator.pop(context);
 
               final snackBar = SnackBar(
                 content: Text('${MaterialHomeDrawerType
