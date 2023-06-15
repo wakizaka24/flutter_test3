@@ -67,11 +67,6 @@ dependencies:
   json_annotation: ^4.8.1
   # WebView
   webview_flutter: ^4.2.2
-#  webview_flutter_android:
-#  plugin_platform_interface:
-#  webview_flutter_platform_interface:
-#  webview_flutter_wkwebview:
-
 
 dev_dependencies:
   flutter_test:
