@@ -79,62 +79,64 @@ class MaterialTest8Page extends HookConsumerWidget {
             ),
           ],
         ),
-      body: Column(
-        children: [
-          Consumer(
-              builder: ((context, ref, child) {
-                final state = ref.watch(materialTest8PageNotifierProvider);
-                return Visibility(visible: state.loading,
-                    child: LinearProgressIndicator(
-                  value: state.progress,
-                  color: Colors.greenAccent,
-                  backgroundColor: Colors.blueAccent,
-                ));
-              })
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Expanded(child: Consumer(
-                    builder: ((context, ref, child) {
-                      return WebViewWidget(
-                        controller: webViewController.value,
-                      );
-                    })
-                )),
-                Container(
-                    color: Colors.blueGrey,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          for (int i = 0; i < state.actionList.length; i++) ... {
-                            Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 4), child: ElevatedButton(
-                              onPressed: () {
-                                state.selectIndex = i;
-                                webViewController.value.loadRequest(
-                                    Uri.parse(state.actionList[
+      body: SafeArea(child:
+        Column(
+          children: [
+            Consumer(
+                builder: ((context, ref, child) {
+                  final state = ref.watch(materialTest8PageNotifierProvider);
+                  return Visibility(visible: state.loading,
+                      child: LinearProgressIndicator(
+                    value: state.progress,
+                    color: Colors.greenAccent,
+                    backgroundColor: Colors.blueAccent,
+                  ));
+                })
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(child: Consumer(
+                      builder: ((context, ref, child) {
+                        return WebViewWidget(
+                          controller: webViewController.value,
+                        );
+                      })
+                  )),
+                  Container(
+                      color: Colors.blueGrey,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            for (int i = 0; i < state.actionList.length; i++) ... {
+                              Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4), child: ElevatedButton(
+                                onPressed: () {
+                                  state.selectIndex = i;
+                                  webViewController.value.loadRequest(
+                                      Uri.parse(state.actionList[
                                       state.selectIndex].url));
-                                notifier.updateState();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 13),
+                                  notifier.updateState();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  textStyle: const TextStyle(fontSize: 13),
+                                ),
+                                child: Text(state.actionList[i].url),
+                              )
                               ),
-                              child: Text(state.actionList[i].url),
-                            )
-                            ),
-                          }
-                        ],
-                      ),
-                    )
-                ),
-              ],
-            )
-          ),
-        ],
+                            }
+                          ],
+                        ),
+                      )
+                  ),
+                ],
+              )
+            ),
+          ],
+        ),
       ),
     );
   }
