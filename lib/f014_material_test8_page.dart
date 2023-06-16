@@ -57,6 +57,36 @@ class MaterialTest8Page extends HookConsumerWidget {
       };
     }, const []);
 
+    var bottomUrlContainer = Container(
+        color: Colors.blueGrey,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              for (int i = 0; i < state.actionList.length; i++) ... {
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        state.selectIndex = i;
+                        webViewController.value.loadRequest(
+                            Uri.parse(state.actionList[
+                            state.selectIndex].url));
+                        notifier.updateState();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 13),
+                      ),
+                      child: Text(state.actionList[i].url),
+                    )
+                ),
+              }
+            ],
+          ),
+        )
+    );
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -79,65 +109,40 @@ class MaterialTest8Page extends HookConsumerWidget {
             ),
           ],
         ),
-      body: SafeArea(child:
-        Column(
-          children: [
-            Consumer(
-                builder: ((context, ref, child) {
-                  final state = ref.watch(materialTest8PageNotifierProvider);
-                  return Visibility(visible: state.loading,
-                      child: LinearProgressIndicator(
-                    value: state.progress,
-                    color: Colors.greenAccent,
-                    backgroundColor: Colors.blueAccent,
-                  ));
-                })
-            ),
-            Expanded(
-              child: Column(
+      body: Column(
+        children: [
+          Consumer(
+              builder: ((context, ref, child) {
+                final state = ref.watch(materialTest8PageNotifierProvider);
+                return Visibility(visible: state.loading,
+                    child: LinearProgressIndicator(
+                      value: state.progress,
+                      color: Colors.greenAccent,
+                      backgroundColor: Colors.blueAccent,
+                    ));
+              })
+          ),
+          Expanded(
+              child: Stack(
                 children: [
-                  Expanded(child: Consumer(
-                      builder: ((context, ref, child) {
-                        return WebViewWidget(
-                          controller: webViewController.value,
-                        );
-                      })
-                  )),
-                  Container(
-                      color: Colors.blueGrey,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            for (int i = 0; i < state.actionList.length; i++) ... {
-                              Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 4), child: ElevatedButton(
-                                onPressed: () {
-                                  state.selectIndex = i;
-                                  webViewController.value.loadRequest(
-                                      Uri.parse(state.actionList[
-                                      state.selectIndex].url));
-                                  notifier.updateState();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  textStyle: const TextStyle(fontSize: 13),
-                                ),
-                                child: Text(state.actionList[i].url),
-                              )
-                              ),
-                            }
-                          ],
-                        ),
+                  Expanded(
+                      child: Consumer(
+                          builder: ((context, ref, child) {
+                            return WebViewWidget(
+                              controller: webViewController.value,
+                            );
+                          })
                       )
                   ),
+                  Column(children: [
+                    const Spacer(),
+                    SafeArea(child: bottomUrlContainer)
+                  ])
                 ],
               )
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )
     );
   }
 }
