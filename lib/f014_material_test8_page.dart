@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'f005_app_common.dart';
+
 class MaterialTest8Page extends HookConsumerWidget {
   final String title;
 
@@ -10,6 +12,7 @@ class MaterialTest8Page extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(materialTest8PageNotifierProvider);
     final notifier = ref.watch(materialTest8PageNotifierProvider.notifier);
     final webViewController = useState(
         WebViewController()
@@ -28,9 +31,12 @@ class MaterialTest8Page extends HookConsumerWidget {
               notifier.updateLoading(false);
             },
             onWebResourceError: (WebResourceError error) {},
-            onNavigationRequest: (NavigationRequest request) {
-              // 画面遷移を防ぐ
+            onNavigationRequest: (NavigationRequest request) async {
+              // ページ遷移を防ぐ
               if (request.url.startsWith('https://www.youtube.com/')) {
+                await AppCommon()
+                    .showMessageDialog(context, 'WebViewの検証',
+                    'ページ遷移を防ぎました', true, 'OK');
                 return NavigationDecision.prevent;
               }
               return NavigationDecision.navigate;
@@ -43,8 +49,7 @@ class MaterialTest8Page extends HookConsumerWidget {
       debugPrint('MaterialTest8Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         webViewController.value.loadRequest(
-            Uri.parse(/*'https://flutter.dev'*/
-            'https://wakizaka24.github.io/reversi/'));
+            Uri.parse(state.actionList[state.selectIndex].url));
       });
 
       return () {
@@ -56,6 +61,7 @@ class MaterialTest8Page extends HookConsumerWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(title),
+          elevation: state.actionList[state.selectIndex].appBarElevation,
           actions: [
             IconButton(
               onPressed: () async {
@@ -87,12 +93,45 @@ class MaterialTest8Page extends HookConsumerWidget {
               })
           ),
           Expanded(
-            child: Consumer(
-              builder: ((context, ref, child) {
-                return WebViewWidget(
-                  controller: webViewController.value,
-                );
-              })
+            child: Column(
+              children: [
+                Expanded(child: Consumer(
+                    builder: ((context, ref, child) {
+                      return WebViewWidget(
+                        controller: webViewController.value,
+                      );
+                    })
+                )),
+                Container(
+                    color: Colors.blueGrey,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          for (int i = 0; i < state.actionList.length; i++) ... {
+                            Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 4), child: ElevatedButton(
+                              onPressed: () {
+                                state.selectIndex = i;
+                                webViewController.value.loadRequest(
+                                    Uri.parse(state.actionList[
+                                      state.selectIndex].url));
+                                notifier.updateState();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 13),
+                              ),
+                              child: Text(state.actionList[i].url),
+                            )
+                            ),
+                          }
+                        ],
+                      ),
+                    )
+                ),
+              ],
             )
           ),
         ],
@@ -104,14 +143,35 @@ class MaterialTest8Page extends HookConsumerWidget {
 // view_model
 class MaterialTest8PageState {
   late WebViewController webViewController;
+  List<UrlButtonAction> actionList = [
+    UrlButtonAction(
+      appBarElevation: 10, url: 'https://flutter.dev'),
+    UrlButtonAction(
+        appBarElevation: 10, url: 'https://wakizaka24.github.io/reversi'),
+    UrlButtonAction(
+      appBarElevation: 0, url: 'https://wakizaka24.sakura.ne.jp/scal'
+        '/deploy/demo1'),
+  ];
+  int selectIndex = 0;
   double progress = 0;
   bool loading = false;
   static MaterialTest8PageState copy(MaterialTest8PageState state) {
     var nState = MaterialTest8PageState();
+    nState.selectIndex = state.selectIndex;
+    nState.actionList = state.actionList;
     nState.progress = state.progress;
     nState.loading = state.loading;
     return nState;
   }
+}
+class UrlButtonAction {
+  double appBarElevation;
+  String url;
+
+  UrlButtonAction({
+    required this.appBarElevation,
+    required this.url,
+  });
 }
 class MaterialTest8PageNotifier extends StateNotifier<MaterialTest8PageState> {
   final Ref ref;
@@ -121,11 +181,15 @@ class MaterialTest8PageNotifier extends StateNotifier<MaterialTest8PageState> {
 
   updateLoading(bool loading) {
     state.loading = loading;
-    state = MaterialTest8PageState.copy(state);
+    updateState();
   }
 
   updateProgress(double progress) {
     state.progress = progress;
+    updateState();
+  }
+
+  updateState() {
     state = MaterialTest8PageState.copy(state);
   }
 }
