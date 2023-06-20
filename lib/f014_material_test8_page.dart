@@ -111,27 +111,19 @@ class MaterialTest8Page extends HookConsumerWidget {
         ),
       body: Column(
         children: [
-          Consumer(
-              builder: ((context, ref, child) {
-                final state = ref.watch(materialTest8PageNotifierProvider);
-                return Visibility(visible: state.loading,
-                    child: LinearProgressIndicator(
-                      value: state.progress,
-                      color: Colors.greenAccent,
-                      backgroundColor: Colors.blueAccent,
-                    ));
-              })
+          Visibility(visible: state.loading,
+              child: LinearProgressIndicator(
+                value: state.progress,
+                color: Colors.greenAccent,
+                backgroundColor: Colors.blueAccent,
+              )
           ),
           Expanded(
               child: Stack(
                 children: [
                   Expanded(
-                      child: Consumer(
-                          builder: ((context, ref, child) {
-                            return WebViewWidget(
-                              controller: webViewController.value,
-                            );
-                          })
+                      child: WebViewWidget(
+                        controller: webViewController.value,
                       )
                   ),
                   Column(children: [
@@ -153,6 +145,8 @@ class MaterialTest8PageState {
   List<UrlButtonAction> actionList = [
     UrlButtonAction(
       appBarElevation: 10, url: 'https://flutter.dev'),
+    UrlButtonAction(
+        appBarElevation: 10, url: 'https://fast.com/ja'),
     UrlButtonAction(
         appBarElevation: 10, url: 'https://wakizaka24.github.io/reversi'),
     UrlButtonAction(
