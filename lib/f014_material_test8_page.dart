@@ -10,6 +10,7 @@ class MaterialTest8Page extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(materialTest8PageNotifierProvider);
     final notifier = ref.watch(materialTest8PageNotifierProvider.notifier);
     final webViewController = useState(
         WebViewController()
@@ -75,25 +76,25 @@ class MaterialTest8Page extends HookConsumerWidget {
         ),
       body: Column(
         children: [
-          Consumer(
+          /*Consumer(
               builder: ((context, ref, child) {
                 final state = ref.watch(materialTest8PageNotifierProvider);
-                return Visibility(visible: state.loading,
+                return */Visibility(visible: state.loading,
                     child: LinearProgressIndicator(
                   value: state.progress,
                   color: Colors.greenAccent,
                   backgroundColor: Colors.blueAccent,
-                ));
-              })
-          ),
+                )/*);
+              }*/)
+          /*)*/,
           Expanded(
-            child: Consumer(
+            child: /*Consumer(
               builder: ((context, ref, child) {
-                return WebViewWidget(
+                return */WebViewWidget(
                   controller: webViewController.value,
-                );
+                )/*;
               })
-            )
+            )*/
           ),
         ],
       ),
