@@ -4,7 +4,6 @@ else
 FOLDER_NAME=$1
 fi
 
-cd ..
 rm -rf ./build/web
 fvm flutter build web --web-renderer canvaskit -t lib/main.dart
 cd ./build/web

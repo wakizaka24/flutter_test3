@@ -96,6 +96,7 @@ class MaterialTest9Page extends HookConsumerWidget {
           title: Text(title),
         ),
       body: SafeArea(child:
+          // TODO: キーボードでずれてしまう。https://hiyoko-programming.com/1694/
         Column(children: [
           Expanded(child: createListView(mainTextFieldControllers.value)),
 
@@ -106,6 +107,16 @@ class MaterialTest9Page extends HookConsumerWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 700,
+                          color: theme.colorScheme.background,
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(150, 32),
