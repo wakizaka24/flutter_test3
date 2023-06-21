@@ -7,12 +7,13 @@ import 'package:flutter_test3/f005_app_common.dart';
 import 'f011_router.gr.dart';
 import 'f013_material_test7_page.dart';
 import 'f014_material_test8_page.dart';
+import 'f015_material_test9_page.dart';
 
 enum MaterialHomeDrawerType {
   autoRouter(title: 'Auto Routerの検証'),
   freezed(title: 'Freezedの検証'),
   webView(title: 'WebViewの検証'),
-  test4(title: 'テスト4'),
+  halfModal(title: '半モーダルの検証'),
   test5(title: 'テスト5');
 
   const MaterialHomeDrawerType({required this.title});
@@ -77,6 +78,13 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                     MaterialPageRoute(builder: (context) =>
                         MaterialTest8Page(title: MaterialHomeDrawerType
                             .webView.title)),
+                  );
+                  return;
+                case MaterialHomeDrawerType.halfModal:
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        MaterialTest9Page(title: MaterialHomeDrawerType
+                            .halfModal.title)),
                   );
                   return;
                 default:
