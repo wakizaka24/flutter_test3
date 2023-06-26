@@ -12,13 +12,6 @@ class MaterialTest9Page extends HookConsumerWidget {
       List<TextEditingController>? originals) {
     var listViewRows = createListViewRows(controllers);
 
-    // TODO: 処理タイミングを探す
-    // if (originals != null) {
-    //   for (int i = 0; i < controllers.length; i++) {
-    //     controllers[i].text = originals[i].text;
-    //   }
-    // }
-
     return SafeArea(
         child: GestureDetector(
             onTap: () {
@@ -141,6 +134,11 @@ class MaterialTest9Page extends HookConsumerWidget {
     );
 
     showHalfModal() {
+      for (int i = 0; i < mainTextFieldControllers.value.length; i++) {
+        halfModalTextFieldControllers.value[i].text
+        = mainTextFieldControllers.value[i].text;
+      }
+
       showModalBottomSheet(
         isScrollControlled: true,
         context: context,
