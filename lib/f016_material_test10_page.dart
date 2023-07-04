@@ -9,11 +9,6 @@ class MaterialTest10Page extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
-    // 画面の高さ
-    double deviceHeight = MediaQuery.of(context).size.height;
-
     useEffect(() {
       debugPrint('MaterialTest10Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -25,6 +20,7 @@ class MaterialTest10Page extends HookConsumerWidget {
     }, const []);
 
     final textField1Controller = useState(TextEditingController());
+    final leftIconPositionLeft = useState(0.0);
 
     return Scaffold(
         appBar: AppBar(
@@ -51,51 +47,34 @@ class MaterialTest10Page extends HookConsumerWidget {
 
                   Row(
                       children: [
-                        // const Spacer(),
-
                         Expanded(child:
-
-                        Stack(alignment: Alignment.topRight,
-                          children: [
-                            Positioned(
-                              child: Container(
-                                height: 10,
-                                width: 10,
-                                color: Colors.blue,
+                          Stack(
+                            children: [
+                              Container(
+                                height: 48,
                               ),
-                            )
-
-                        // AnimatedPositioned(
-                        //   left: 0,
-                        //   duration: const Duration(seconds: 2),
-                        //   child: Container(
-                        //     height: 10,
-                        //     width: 10,
-                        //     color: Colors.blue,
-                        //   ),
-                        // ),
-
-                          ]
-                        )
-
-                        // AnimatedPadding(
-                        //   padding: const EdgeInsets.only(left: 0),
-                        //   duration: const Duration(seconds: 2),
-                        //   curve: Curves.easeInOut,
-                        //     child: Container(
-                        //       height: 10,
-                        //       width: 10,
-                        //       color: Colors.blue,
-                        //     ),
-                        // ),
-
-
-                        //   Container(color: Colors.green,height: 10,),
-
+                              AnimatedPositioned(
+                                right: leftIconPositionLeft.value,
+                                top: 0,
+                                height: 48,
+                                width: 48,
+                                duration: const Duration(milliseconds: 500),
+                                child: Container(
+                                  color: Colors.green,
+                                ),
+                              )
+                            ]
+                          )
                         ),
 
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (leftIconPositionLeft.value == 0) {
+                              leftIconPositionLeft.value = 50;
+                            } else {
+                              leftIconPositionLeft.value = 0;
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             fixedSize: const Size(
                               130,
@@ -106,6 +85,7 @@ class MaterialTest10Page extends HookConsumerWidget {
                           ),
                           child: const Text('ElevatedButton'),
                         ),
+
                         const Spacer(),
                       ]
                   ),
