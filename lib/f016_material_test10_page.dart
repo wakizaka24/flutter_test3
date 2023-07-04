@@ -9,18 +9,34 @@ class MaterialTest10Page extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 画面の高さ
+    double deviceHeight = MediaQuery.of(context).size.height;
+
+    final textField1Controller = useState(TextEditingController());
+    final leftIconPositionLeft = useState(50.0);
+    final leftIconAnimation = useState(true);
+
+    leftAnimationOnEnd() {
+      if (!leftIconAnimation.value) {
+        return;
+      }
+      if (leftIconPositionLeft.value == 0) {
+        leftIconPositionLeft.value = 50;
+      } else {
+        leftIconPositionLeft.value = 0;
+      }
+    }
+
     useEffect(() {
       debugPrint('MaterialTest10Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        leftAnimationOnEnd();
       });
 
       return () {
         debugPrint('MaterialTest10Pageの解放処理');
       };
     }, const []);
-
-    final textField1Controller = useState(TextEditingController());
-    final leftIconPositionLeft = useState(0.0);
 
     return Scaffold(
         appBar: AppBar(
@@ -43,7 +59,7 @@ class MaterialTest10Page extends HookConsumerWidget {
                   bottom: 16,
                 ),
                 children: [
-                  Container(height: 800),
+                  Container(height: deviceHeight - 300),
 
                   Row(
                       children: [
@@ -59,6 +75,7 @@ class MaterialTest10Page extends HookConsumerWidget {
                                 height: 48,
                                 width: 48,
                                 duration: const Duration(milliseconds: 500),
+                                onEnd: () => leftAnimationOnEnd(),
                                 child: Container(
                                   color: Colors.green,
                                 ),
@@ -69,10 +86,11 @@ class MaterialTest10Page extends HookConsumerWidget {
 
                         ElevatedButton(
                           onPressed: () {
-                            if (leftIconPositionLeft.value == 0) {
-                              leftIconPositionLeft.value = 50;
+                            if (leftIconAnimation.value) {
+                              leftIconAnimation.value = false;
                             } else {
-                              leftIconPositionLeft.value = 0;
+                              leftIconAnimation.value = true;
+                              leftAnimationOnEnd();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -83,7 +101,8 @@ class MaterialTest10Page extends HookConsumerWidget {
                             textStyle: const TextStyle(fontSize: 13),
                             padding: const EdgeInsets.all(0),
                           ),
-                          child: const Text('ElevatedButton'),
+                          child: Text(leftIconAnimation.value
+                              ? 'STOP' : 'START'),
                         ),
 
                         const Spacer(),
