@@ -121,10 +121,8 @@ class MaterialTest8Page extends HookConsumerWidget {
           Expanded(
               child: Stack(
                 children: [
-                  Expanded(
-                      child: WebViewWidget(
-                        controller: webViewController.value,
-                      )
+                  WebViewWidget(
+                    controller: webViewController.value,
                   ),
                   Column(children: [
                     const Spacer(),
