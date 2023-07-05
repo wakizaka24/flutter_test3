@@ -13,17 +13,31 @@ class MaterialTest10Page extends HookConsumerWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
 
     final textField1Controller = useState(TextEditingController());
-    final leftIconPositionLeft = useState(50.0);
+    final leftIconPositionRight = useState(50.0);
     final leftIconAnimation = useState(true);
+
+    final rightIconPositionLeft = useState(50.0);
+    final rightIconAnimation = useState(true);
 
     leftAnimationOnEnd() {
       if (!leftIconAnimation.value) {
         return;
       }
-      if (leftIconPositionLeft.value == 0) {
-        leftIconPositionLeft.value = 50;
+      if (leftIconPositionRight.value == 0) {
+        leftIconPositionRight.value = 50;
       } else {
-        leftIconPositionLeft.value = 0;
+        leftIconPositionRight.value = 0;
+      }
+    }
+
+    rightAnimationOnEnd() {
+      if (!rightIconAnimation.value) {
+        return;
+      }
+      if (rightIconPositionLeft.value == 0) {
+        rightIconPositionLeft.value = 50;
+      } else {
+        rightIconPositionLeft.value = 0;
       }
     }
 
@@ -31,6 +45,7 @@ class MaterialTest10Page extends HookConsumerWidget {
       debugPrint('MaterialTest10Pageの初期化処理');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         leftAnimationOnEnd();
+        rightAnimationOnEnd();
       });
 
       return () {
@@ -70,15 +85,13 @@ class MaterialTest10Page extends HookConsumerWidget {
                                 height: 48,
                               ),
                               AnimatedPositioned(
-                                right: leftIconPositionLeft.value,
+                                right: leftIconPositionRight.value,
                                 top: 0,
                                 height: 48,
                                 width: 48,
                                 duration: const Duration(milliseconds: 500),
                                 onEnd: () => leftAnimationOnEnd(),
-                                child: Container(
-                                  color: Colors.green,
-                                ),
+                                child: const Icon(Icons.arrow_circle_right),
                               )
                             ]
                           )
@@ -88,9 +101,12 @@ class MaterialTest10Page extends HookConsumerWidget {
                           onPressed: () {
                             if (leftIconAnimation.value) {
                               leftIconAnimation.value = false;
+                              rightIconAnimation.value = false;
                             } else {
                               leftIconAnimation.value = true;
                               leftAnimationOnEnd();
+                              rightIconAnimation.value = true;
+                              rightAnimationOnEnd();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -105,7 +121,24 @@ class MaterialTest10Page extends HookConsumerWidget {
                               ? 'STOP' : 'START'),
                         ),
 
-                        const Spacer(),
+                        Expanded(child:
+                          Stack(
+                              children: [
+                                Container(
+                                  height: 48,
+                                ),
+                                AnimatedPositioned(
+                                  left: rightIconPositionLeft.value,
+                                  top: 0,
+                                  height: 48,
+                                  width: 48,
+                                  duration: const Duration(milliseconds: 500),
+                                  onEnd: () => rightAnimationOnEnd(),
+                                  child: const Icon(Icons.arrow_circle_left),
+                                )
+                              ]
+                          )
+                        ),
                       ]
                   ),
 
