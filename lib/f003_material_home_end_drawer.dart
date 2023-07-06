@@ -9,6 +9,7 @@ import 'f013_material_test7_page.dart';
 import 'f014_material_test8_page.dart';
 import 'f015_material_test9_page.dart';
 import 'f016_material_test10_page.dart';
+import 'f017_material_test11_page.dart';
 
 enum MaterialHomeDrawerType {
   autoRouter(title: 'Auto Routerの検証'),
@@ -16,7 +17,16 @@ enum MaterialHomeDrawerType {
   webView(title: 'WebViewの検証'),
   halfModal(title: '半モーダルの検証'),
   animation(title: 'アニメーションの検証'),
-  test6(title: 'テスト6');
+  heroTagTransition(title: '画面遷移アニメの検証'),
+  test7(title: 'テスト7'),
+  test8(title: 'テスト8'),
+  test9(title: 'テスト9'),
+  test10(title: 'テスト10'),
+  test11(title: 'テスト11'),
+  test12(title: 'テスト12'),
+  test13(title: 'テスト13'),
+  test14(title: 'テスト14'),
+  test15(title: 'テスト15');
 
   const MaterialHomeDrawerType({required this.title});
   final String title;
@@ -37,7 +47,7 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
     final theme = Theme.of(context);
 
     ListView menuList = ListView(
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       children: [
         for (int i=0; i < MaterialHomeDrawerType.values.length; i++) ... {
           HighlightAbleButton(
@@ -94,6 +104,13 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                     MaterialPageRoute(builder: (context) =>
                       MaterialTest10Page(title: MaterialHomeDrawerType
                           .animation.title)),
+                  );
+                  return;
+                case MaterialHomeDrawerType.heroTagTransition:
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        MaterialTest11Page(title: MaterialHomeDrawerType
+                            .heroTagTransition.title)),
                   );
                   return;
                 default:
