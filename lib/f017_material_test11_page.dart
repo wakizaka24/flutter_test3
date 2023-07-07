@@ -32,6 +32,19 @@ class MaterialTest11Page extends HookConsumerWidget {
             ),
           );
         });
+    final createStackWidget2 = useCreateStackWidget2(heroTagBase, '遷移する',
+        textField1Controller.value, textField2Controller.value, () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                // fullscreenDialog: true,
+                builder: (BuildContext context) => MaterialTest11SubPage(
+                title: title, heroTagBase: heroTagBase,
+                editingTextField1Controller: textField1Controller.value,
+                editingTextField2Controller: textField2Controller.value
+              ),
+            ),
+          );
+        });
 
     useEffect(() {
       debugPrint('MaterialTest11Pageの初期化処理');
@@ -58,6 +71,8 @@ class MaterialTest11Page extends HookConsumerWidget {
                 child: ListView(children: [
                   Container(height: deviceHeight - 300),
                   createHeroWidget1(),
+                  Container(height: 8),
+                  createStackWidget2(),
                   Container(height: deviceHeight - 300),
                 ])
             )
@@ -140,6 +155,98 @@ Hero Function() useCreateHeroWidget1(String heroTag, String buttonTitle,
   };
 }
 
+Stack Function() useCreateStackWidget2(String heroTagBase, String buttonTitle,
+    TextEditingController textField1Controller,
+    TextEditingController textField2Controller, Function() onPressed) {
+
+  return () {
+    return Stack(children: [
+      Hero(tag: '', child:
+        Column(children: [
+          Card(
+            elevation: 1.0,
+            color: Colors.blueGrey,
+            margin: const EdgeInsets.all(24),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)),
+            child: Container(height: 100),
+          )
+        ],)
+      )
+    ],);
+
+    /*
+    return Hero(
+      tag: heroTag,
+      child: Card(
+          elevation: 1.0,
+          margin: const EdgeInsets.all(24),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15)),
+          child: Padding(padding: const EdgeInsets.fromLTRB(15, 15, 15, 11),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('遷移1',
+                      style: TextStyle(
+                        fontSize: 21,
+                        // fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Container(height: 4),
+                    TextField(
+                      controller: textField1Controller,
+                      style: const TextStyle(fontSize: 15),
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8),
+                        border: OutlineInputBorder(),
+                        hintText: '宛先',
+                      ),
+                      onChanged: (text) {
+                        debugPrint("Textの変更検知={$text}");
+                      },
+                    ),
+                    Container(height: 8),
+                    TextField(
+                      controller: textField2Controller,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 5,
+                      maxLines: 5,
+                      style: const TextStyle(fontSize: 15),
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8),
+                        border: OutlineInputBorder(),
+                        hintText: '本文\n\n\n',
+                      ),
+                      onChanged: (text) {
+                        debugPrint("Textの変更検知={$text}");
+                      },
+                    ),
+                    Container(height: 2),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        ElevatedButton(
+                          onPressed: onPressed,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(82, 32),
+                            textStyle: const TextStyle(fontSize: 13),
+                            padding: const EdgeInsets.all(0),
+                          ),
+                          child: Text(buttonTitle),
+                        ),
+                      ],
+                    ),
+                  ]
+              )
+          )
+      ),
+    );
+
+    */
+  };
+}
+
 class MaterialTest11SubPage extends HookConsumerWidget {
   final String title;
   final String heroTagBase;
@@ -179,9 +286,9 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
+        // appBar: AppBar(
+        //   title: Text(title),
+        // ),
         body: SafeArea(
             child: GestureDetector(
                 onTap: () {
