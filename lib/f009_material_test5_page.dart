@@ -3,44 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test3/f005_app_common.dart';
 import 'package:flutter_test3/f010_material_test6_page.dart';
 
-typedef FutureStringCallback = Future<String?> Function();
-typedef FutureStringParam1StringCallback = Future<String?> Function(String?);
-typedef FutureVoidCallback = Future<void> Function();
-
-// Widget(View)と分離できた処理
-FutureStringCallback useShowMessageDialog(String title, String message,
-    [bool negativeHidden = false, String positiveTitle = 'はい',
-      String negativeTitle = 'キャンセル']) {
-  final context = useContext();
-  return () {
-    return AppCommon().showMessageDialog(context, title, message,
-        negativeHidden, positiveTitle, negativeTitle);
-  };
-}
-FutureStringCallback useShowMessageDialogType001() {
-  return useShowMessageDialog('Hooksの検証',
-      'メッセージ', false, 'Yes', 'No');
-}
-FutureStringParam1StringCallback useShowMessageDialogType002() {
-  final context = useContext();
-  return (result) {
-    return AppCommon().showMessageDialog(context, 'Hooksの検証',
-        'メッセージの戻り値：$result', true, 'OK');
-  };
-}
-FutureVoidCallback useShowMessageDialogType003() {
-  final context = useContext();
-  final isMounted = useIsMounted();
-  return () async {
-    String? result = await AppCommon().showMessageDialog(
-        context, 'Hooksの検証', 'メッセージ', false, 'はい', 'いいえ');
-    if (!isMounted()) return;
-    // ignore: use_build_context_synchronously
-    await AppCommon().showMessageDialog(context, 'Hooksの検証',
-        'メッセージの戻り値：$result', true, 'OK');
-  };
-}
-
 class MaterialTest5Page extends HookWidget {
   const MaterialTest5Page({super.key, required this.heroTag});
   final String heroTag;
@@ -178,6 +140,40 @@ class MaterialTest5Page extends HookWidget {
       ),
     );
   }
+}
+
+// Widget(View)と分離できた処理
+Future<String?> Function() useShowMessageDialog(String title, String message,
+    [bool negativeHidden = false, String positiveTitle = 'はい',
+      String negativeTitle = 'キャンセル']) {
+  final context = useContext();
+  return () {
+    return AppCommon().showMessageDialog(context, title, message,
+        negativeHidden, positiveTitle, negativeTitle);
+  };
+}
+Future<String?> Function() useShowMessageDialogType001() {
+  return useShowMessageDialog('Hooksの検証',
+      'メッセージ', false, 'Yes', 'No');
+}
+Future<String?> Function(String?) useShowMessageDialogType002() {
+  final context = useContext();
+  return (result) {
+    return AppCommon().showMessageDialog(context, 'Hooksの検証',
+        'メッセージの戻り値：$result', true, 'OK');
+  };
+}
+Future<void> Function() useShowMessageDialogType003() {
+  final context = useContext();
+  final isMounted = useIsMounted();
+  return () async {
+    String? result = await AppCommon().showMessageDialog(
+        context, 'Hooksの検証', 'メッセージ', false, 'はい', 'いいえ');
+    if (!isMounted()) return;
+    // ignore: use_build_context_synchronously
+    await AppCommon().showMessageDialog(context, 'Hooksの検証',
+        'メッセージの戻り値：$result', true, 'OK');
+  };
 }
 
 class MaterialTest5Widget extends HookWidget {

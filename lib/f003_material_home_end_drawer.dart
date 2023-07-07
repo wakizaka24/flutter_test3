@@ -109,8 +109,10 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
                 case MaterialHomeDrawerType.heroTagTransition:
                   Navigator.push(context,
                     MaterialPageRoute(builder: (context) =>
-                        MaterialTest11Page(title: MaterialHomeDrawerType
-                            .heroTagTransition.title)),
+                        MaterialTest11Page(
+                          title: MaterialHomeDrawerType.heroTagTransition.title,
+                          heroTagBase: 'heroTagTransitionPage',
+                        )),
                   );
                   return;
                 default:
