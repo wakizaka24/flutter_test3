@@ -238,8 +238,8 @@ Stack Function() useCreateStackWidget2(String heroTagBase, String buttonTitle,
               child: TextField(
                 controller: textField2Controller,
                 keyboardType: TextInputType.multiline,
-                minLines: 5,
-                maxLines: 5,
+                minLines: !extension ? 5 : 10,
+                maxLines: !extension ? 5 : 10,
                 style: const TextStyle(fontSize: 15),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(8),
