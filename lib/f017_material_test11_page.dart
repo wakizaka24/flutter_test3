@@ -302,6 +302,9 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     final textField2Controller = useState(TextEditingController(
         text: editingTextField2Controller.text));
 
+    // ステータスバーの高さ
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     final createHeroWidget1 = useCreateHeroWidget1('$heroTagBase + 1 + all',
         '戻る', textField1Controller.value, textField2Controller.value, () {
           editingTextField1Controller.text = textField1Controller.value.text;
@@ -338,6 +341,8 @@ class MaterialTest11SubPage extends HookConsumerWidget {
                   }
                 },
                 child: ListView(children: [
+                  // Container(height: statusBarHeight),
+                  Container(height: 24),
                   if (widget1)
                   createHeroWidget1(),
                   if (!widget1)
