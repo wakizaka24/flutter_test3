@@ -27,7 +27,7 @@ class MaterialTest11Page extends HookConsumerWidget {
             MaterialPageRoute(
               // fullscreenDialog: true,
               builder: (BuildContext context) => MaterialTest11SubPage(
-                title: title, heroTagBase: heroTagBase, widget1: true,
+                title: 'レイアウト1', heroTagBase: heroTagBase, widget1: true,
                 editingTextField1Controller: textField1Controller.value,
                 editingTextField2Controller: textField2Controller.value
               ),
@@ -40,7 +40,7 @@ class MaterialTest11Page extends HookConsumerWidget {
               MaterialPageRoute(
                 // fullscreenDialog: true,
                 builder: (BuildContext context) => MaterialTest11SubPage(
-                title: title, heroTagBase: heroTagBase, widget1: false,
+                title: 'レイアウト2', heroTagBase: heroTagBase, widget1: false,
                 editingTextField1Controller: textField3Controller.value,
                 editingTextField2Controller: textField4Controller.value
               ),
@@ -302,9 +302,6 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     final textField2Controller = useState(TextEditingController(
         text: editingTextField2Controller.text));
 
-    // ステータスバーの高さ
-    double statusBarHeight = MediaQuery.of(context).padding.top;
-
     final createHeroWidget1 = useCreateHeroWidget1('$heroTagBase + 1 + all',
         '戻る', textField1Controller.value, textField2Controller.value, () {
           editingTextField1Controller.text = textField1Controller.value.text;
@@ -329,9 +326,9 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text(title),
-        // ),
+        appBar: AppBar(
+          title: Text(title),
+        ),
         body: SafeArea(
             child: GestureDetector(
                 onTap: () {
