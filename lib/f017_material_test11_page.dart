@@ -19,13 +19,15 @@ class MaterialTest11Page extends HookConsumerWidget {
 
     final textField1Controller = useState(TextEditingController());
     final textField2Controller = useState(TextEditingController());
+    final textField3Controller = useState(TextEditingController());
+    final textField4Controller = useState(TextEditingController());
     final createHeroWidget1 = useCreateHeroWidget1('$heroTagBase + 1 + all',
       '遷移する', textField1Controller.value, textField2Controller.value, () {
           Navigator.of(context).push(
             MaterialPageRoute(
               // fullscreenDialog: true,
               builder: (BuildContext context) => MaterialTest11SubPage(
-                title: title, heroTagBase: heroTagBase,
+                title: title, heroTagBase: heroTagBase, widget1: true,
                 editingTextField1Controller: textField1Controller.value,
                 editingTextField2Controller: textField2Controller.value
               ),
@@ -33,14 +35,14 @@ class MaterialTest11Page extends HookConsumerWidget {
           );
         });
     final createStackWidget2 = useCreateStackWidget2(heroTagBase, '遷移する',
-        textField1Controller.value, textField2Controller.value, () {
+        textField3Controller.value, textField4Controller.value, false, () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 // fullscreenDialog: true,
                 builder: (BuildContext context) => MaterialTest11SubPage(
-                title: title, heroTagBase: heroTagBase,
-                editingTextField1Controller: textField1Controller.value,
-                editingTextField2Controller: textField2Controller.value
+                title: title, heroTagBase: heroTagBase, widget1: false,
+                editingTextField1Controller: textField3Controller.value,
+                editingTextField2Controller: textField4Controller.value
               ),
             ),
           );
@@ -71,7 +73,7 @@ class MaterialTest11Page extends HookConsumerWidget {
                 child: ListView(children: [
                   Container(height: deviceHeight - 300),
                   createHeroWidget1(),
-                  Container(height: 8),
+                  Container(height: 32),
                   createStackWidget2(),
                   Container(height: deviceHeight - 300),
                 ])
@@ -90,14 +92,14 @@ Hero Function() useCreateHeroWidget1(String heroTag, String buttonTitle,
       tag: heroTag,
       child: Card(
           elevation: 1.0,
-          margin: const EdgeInsets.all(24),
+          margin: const EdgeInsets.symmetric(horizontal: 24),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15)),
           child: Padding(padding: const EdgeInsets.fromLTRB(15, 15, 15, 11),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('遷移1',
+                    const Text('レイアウト1',
                       style: TextStyle(
                         fontSize: 21,
                         // fontWeight: FontWeight.bold
@@ -126,7 +128,7 @@ Hero Function() useCreateHeroWidget1(String heroTag, String buttonTitle,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(8),
                         border: OutlineInputBorder(),
-                        hintText: '本文\n\n\n',
+                        hintText: '本文',
                       ),
                       onChanged: (text) {
                         debugPrint("Textの変更検知={$text}");
@@ -157,99 +159,130 @@ Hero Function() useCreateHeroWidget1(String heroTag, String buttonTitle,
 
 Stack Function() useCreateStackWidget2(String heroTagBase, String buttonTitle,
     TextEditingController textField1Controller,
-    TextEditingController textField2Controller, Function() onPressed) {
+    TextEditingController textField2Controller,
+    bool extension,
+    Function() onPressed) {
 
   return () {
     return Stack(children: [
-      Hero(tag: '', child:
-        Column(children: [
-          Card(
-            elevation: 1.0,
-            color: Colors.blueGrey,
-            margin: const EdgeInsets.all(24),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)),
-            child: Container(height: 100),
-          )
-        ],)
-      )
-    ],);
-
-    /*
-    return Hero(
-      tag: heroTag,
-      child: Card(
-          elevation: 1.0,
-          margin: const EdgeInsets.all(24),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15)),
-          child: Padding(padding: const EdgeInsets.fromLTRB(15, 15, 15, 11),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('遷移1',
-                      style: TextStyle(
-                        fontSize: 21,
-                        // fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Container(height: 4),
-                    TextField(
-                      controller: textField1Controller,
-                      style: const TextStyle(fontSize: 15),
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(8),
-                        border: OutlineInputBorder(),
-                        hintText: '宛先',
-                      ),
-                      onChanged: (text) {
-                        debugPrint("Textの変更検知={$text}");
-                      },
-                    ),
-                    Container(height: 8),
-                    TextField(
-                      controller: textField2Controller,
-                      keyboardType: TextInputType.multiline,
-                      minLines: 5,
-                      maxLines: 5,
-                      style: const TextStyle(fontSize: 15),
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(8),
-                        border: OutlineInputBorder(),
-                        hintText: '本文\n\n\n',
-                      ),
-                      onChanged: (text) {
-                        debugPrint("Textの変更検知={$text}");
-                      },
-                    ),
-                    Container(height: 2),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: onPressed,
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(82, 32),
-                            textStyle: const TextStyle(fontSize: 13),
-                            padding: const EdgeInsets.all(0),
-                          ),
-                          child: Text(buttonTitle),
-                        ),
-                      ],
-                    ),
-                  ]
-              )
+      Positioned(left: 0, top: 0, right: 0, bottom: 0,
+          child: Hero(tag: '$heroTagBase + Background', child:
+            Card(
+              elevation: 1.0,
+              color: Colors.blueGrey,
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Container(height: 300),
+            )
           )
       ),
-    );
-
-    */
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: !extension ? CrossAxisAlignment.center
+              : CrossAxisAlignment.start,
+          children: [
+          Hero(tag: '$heroTagBase + Text1', child:
+            Material(
+              color: Colors.transparent,
+              child: Text('レイアウト2',
+                style: TextStyle(
+                  fontSize: 21,
+                  color: !extension ? Colors.black :  Colors.white,
+                ),
+              ),
+            )
+          ),
+          Container(height: 4),
+          if (extension)
+            const Text('宛先',
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white
+              ),
+            ),
+          if (extension)
+            Container(height: 4),
+          Hero(tag: '$heroTagBase + TextField1', child:
+            Material(
+              color: Colors.transparent,
+              child: TextField(
+                controller: textField1Controller,
+                style: const TextStyle(fontSize: 15),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(8),
+                  border: const OutlineInputBorder(),
+                  hintText: !extension ? '宛先' : '',
+                ),
+                onChanged: (text) {
+                  debugPrint("Textの変更検知={$text}");
+                },
+              ),
+            ),
+          ),
+          Container(height: 8),
+          if (extension)
+            const Text('本文',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white
+              ),
+            ),
+          if (extension)
+            Container(height: 4),
+          Hero(tag: '$heroTagBase + TextField2', child:
+            Material(
+              color: Colors.transparent,
+              child: TextField(
+                controller: textField2Controller,
+                keyboardType: TextInputType.multiline,
+                minLines: 5,
+                maxLines: 5,
+                style: const TextStyle(fontSize: 15),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(8),
+                  border: const OutlineInputBorder(),
+                  hintText: !extension ? '本文' : '',
+                ),
+                onChanged: (text) {
+                  debugPrint("Textの変更検知={$text}");
+                },
+              ),
+            )
+          ),
+          Container(height: 8),
+          Row(
+            children: [
+              Visibility(visible: extension, child: const Spacer()),
+              Hero(tag: '$heroTagBase + Button1', child:
+                SizedBox(width: 82, height: 32, child:
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    style: ElevatedButton.styleFrom(
+                      // fixedSize: const Size(82, 32),
+                      textStyle: const TextStyle(fontSize: 13),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                    child: Text(buttonTitle),
+                  )
+                )
+              ),
+              Visibility(visible: !extension, child: const Spacer()),
+            ],
+          ),
+          Container(height: 4),
+        ],),
+      )
+    ],);
   };
 }
 
 class MaterialTest11SubPage extends HookConsumerWidget {
   final String title;
   final String heroTagBase;
+  final bool widget1;
   final TextEditingController editingTextField1Controller;
   final TextEditingController editingTextField2Controller;
 
@@ -257,6 +290,7 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     super.key,
     required this.title,
     required this.heroTagBase,
+    required this.widget1,
     required this.editingTextField1Controller,
     required this.editingTextField2Controller
   });
@@ -270,6 +304,12 @@ class MaterialTest11SubPage extends HookConsumerWidget {
 
     final createHeroWidget1 = useCreateHeroWidget1('$heroTagBase + 1 + all',
         '戻る', textField1Controller.value, textField2Controller.value, () {
+          editingTextField1Controller.text = textField1Controller.value.text;
+          editingTextField2Controller.text = textField2Controller.value.text;
+          Navigator.pop(context);
+        });
+    final createStackWidget2 = useCreateStackWidget2(heroTagBase, '戻る',
+        textField1Controller.value, textField2Controller.value, true, () {
           editingTextField1Controller.text = textField1Controller.value.text;
           editingTextField2Controller.text = textField2Controller.value.text;
           Navigator.pop(context);
@@ -298,7 +338,10 @@ class MaterialTest11SubPage extends HookConsumerWidget {
                   }
                 },
                 child: ListView(children: [
-                  createHeroWidget1()
+                  if (widget1)
+                  createHeroWidget1(),
+                  if (!widget1)
+                  createStackWidget2()
                 ])
             )
         )
