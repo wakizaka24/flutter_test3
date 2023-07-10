@@ -10,13 +10,16 @@ class MaterialTest10Page extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 画面の高さ
+    double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
 
+    double containerWidth = (deviceWidth - 130) / 2 - 48 - 16;
+
     final textField1Controller = useState(TextEditingController());
-    final leftIconPositionRight = useState(50.0);
+    final leftIconPositionRight = useState(containerWidth);
     final leftIconAnimation = useState(true);
 
-    final rightIconPositionLeft = useState(50.0);
+    final rightIconPositionLeft = useState(containerWidth);
     final rightIconAnimation = useState(true);
 
     leftAnimationOnEnd() {
@@ -24,7 +27,7 @@ class MaterialTest10Page extends HookConsumerWidget {
         return;
       }
       if (leftIconPositionRight.value == 0) {
-        leftIconPositionRight.value = 50;
+        leftIconPositionRight.value = containerWidth;
       } else {
         leftIconPositionRight.value = 0;
       }
@@ -35,7 +38,7 @@ class MaterialTest10Page extends HookConsumerWidget {
         return;
       }
       if (rightIconPositionLeft.value == 0) {
-        rightIconPositionLeft.value = 50;
+        rightIconPositionLeft.value = containerWidth;
       } else {
         rightIconPositionLeft.value = 0;
       }
