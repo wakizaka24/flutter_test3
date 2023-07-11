@@ -1,10 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test3/f004_highlight_able_button.dart';
 import 'package:flutter_test3/f005_app_common.dart';
 
-import 'f011_router.gr.dart';
 import 'f013_material_test7_page.dart';
 import 'f014_material_test8_page.dart';
 import 'f015_material_test9_page.dart';
@@ -12,7 +10,6 @@ import 'f016_material_test10_page.dart';
 import 'f017_material_test11_page.dart';
 
 enum MaterialHomeDrawerType {
-  autoRouter(title: 'Auto Routerの検証'),
   freezed(title: 'Freezedの検証'),
   webView(title: 'WebViewの検証'),
   halfModal(title: '半モーダルの検証'),
@@ -66,9 +63,6 @@ class _MaterialHomeDrawerState extends State<MaterialHomeDrawer> {
               });
 
               switch (MaterialHomeDrawerType.values[i!]) {
-                case MaterialHomeDrawerType.autoRouter:
-                  context.navigateTo(const MaterialHome3Route());
-                  return;
                 case MaterialHomeDrawerType.freezed:
                   Navigator.push(context,
                     MaterialPageRoute(builder: (context) =>

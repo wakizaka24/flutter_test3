@@ -64,6 +64,7 @@ class MaterialTest11Page extends HookConsumerWidget {
           child: Hero(
             tag: '$heroTagBase + AppBar',
             child: AppBar(
+              centerTitle: true,
               title: Text(title),
             ),
           ),
@@ -337,6 +338,7 @@ class MaterialTest11SubPage extends HookConsumerWidget {
           child: Hero(
             tag: '$heroTagBase + AppBar',
             child: AppBar(
+              centerTitle: true,
               // automaticallyImplyLeading: false,
               title: Text(title),
             ),
