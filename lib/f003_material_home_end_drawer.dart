@@ -15,15 +15,16 @@ enum MaterialHomeDrawerType {
   halfModal(title: '半モーダルの検証'),
   animation(title: 'アニメーションの検証'),
   heroTagTransition(title: '画面遷移アニメの検証'),
-  test7(title: 'テスト7'),
-  test8(title: 'テスト8'),
-  test9(title: 'テスト9'),
-  test10(title: 'テスト10'),
-  test11(title: 'テスト11'),
-  test12(title: 'テスト12'),
-  test13(title: 'テスト13'),
-  test14(title: 'テスト14'),
-  test15(title: 'テスト15');
+  test6(title: 'テスト'),
+  test7(title: 'テスト'),
+  test8(title: 'テスト'),
+  test9(title: 'テスト'),
+  test10(title: 'テスト'),
+  test11(title: 'テスト'),
+  test12(title: 'テスト'),
+  test13(title: 'テスト'),
+  test14(title: 'テスト'),
+  test15(title: 'テスト');
 
   const MaterialHomeDrawerType({required this.title});
   final String title;
