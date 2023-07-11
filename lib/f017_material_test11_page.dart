@@ -59,8 +59,14 @@ class MaterialTest11Page extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: Hero(
+            tag: '$heroTagBase + AppBar',
+            child: AppBar(
+              title: Text(title),
+            ),
+          ),
         ),
         body: SafeArea(
             child: GestureDetector(
@@ -326,8 +332,15 @@ class MaterialTest11SubPage extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: Hero(
+            tag: '$heroTagBase + AppBar',
+            child: AppBar(
+              // automaticallyImplyLeading: false,
+              title: Text(title),
+            ),
+          ),
         ),
         body: SafeArea(
             child: GestureDetector(
