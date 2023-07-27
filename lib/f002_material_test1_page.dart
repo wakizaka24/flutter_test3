@@ -372,11 +372,18 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
                       // }
 
                       // http://localhost
-                      var response = await http.get(Uri.parse(testApi1));
-                      var responseStr = 'API GET $testApi1\n'
-                          'Response ${response.statusCode}'
-                          ' ${response.body}';
-                      debugPrint(responseStr);
+                      String responseStr;
+                      try {
+                        var response = await http.get(Uri.parse(testApi1));
+                        responseStr = 'API GET $testApi1\n'
+                            'Response ${response.statusCode}'
+                            ' ${response.body}';
+                        debugPrint(responseStr);
+                      } on Exception catch (e) {
+                        responseStr = 'API GET $testApi1\n'
+                            'Response $e';
+                      }
+
                       if (!mounted) return;
                       await AppCommon()
                           .showMessageDialog(context, 'Httpの検証',
