@@ -129,6 +129,48 @@ class _MaterialTest1PageState extends State<MaterialTest1Page>
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  SizedBox(width: 40, height: 29, child:
+                  TextButton(
+                    onPressed: () {
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      textStyle: const TextStyle(fontSize: 15),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                    child: const Text('設定'),
+                  )
+                  ),
+                  SizedBox(width: 29, height: 29, child:
+                  TextButton(
+                    onPressed: () {
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      textStyle: const TextStyle(fontSize: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                    child: const Icon(Icons.check),
+                  )
+                  ),
+                  SizedBox(width: 29, height: 29,
+                      child: Material(
+                          color: Colors.transparent,
+                          shape: const CircleBorder(),
+                          clipBehavior: Clip.hardEdge,
+                          child: IconButton(
+                            icon: const Icon(Icons.check),
+                            onPressed: () {
+                            },
+                            color: Colors.black,
+                            padding: const EdgeInsets.all(0),
+                            highlightColor: Colors.red,
+                          )
+                      )
+                  ),
                   TextButton(
                     onPressed: () {
                     },
